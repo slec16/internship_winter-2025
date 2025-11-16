@@ -7,7 +7,7 @@ export interface BaseItem {
     description: string
     location: string
     type: ItemType
-    image?: string
+    image?: string | string[]
 }
 
 // Недвижимость

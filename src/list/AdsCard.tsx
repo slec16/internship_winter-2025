@@ -1,11 +1,25 @@
 import type { Item } from "../types/items"
 import { Link } from "react-router-dom"
+import AdsCardImage from "./AdsCardImage"
+
+const fieldTranslations: Record<string, string> = {
+    propertyType: 'Тип недвижимости',
+    area: 'Площадь',
+    rooms: 'Комнаты',
+    price: 'Цена',
+    brand: 'Марка',
+    model: 'Модель',
+    year: 'Год',
+    mileage: 'Пробег',
+    serviceType: 'Тип услуги',
+    experience: 'Опыт',
+    cost: 'Стоимость',
+    workSchedule: 'График работы'
+}
 
 const AdsCard = ({ item }: { item: Item }) => {
 
-    const { id, name, type, description, location, ...uniqueFields } = item
-
-    console.log(Object.entries(uniqueFields))
+    const { id, name, type, description, location, image, ...uniqueFields } = item
 
     const getTypeColor = (type: string) => {
         switch (type) {
@@ -20,29 +34,29 @@ const AdsCard = ({ item }: { item: Item }) => {
         }
     }
 
-
     return (
         <Link
-            to={`/item/${item.id}`}
+            to={`/item/${id}`}
             className="block p-4 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-gray-100 dark:bg-gray-700"
         >
+            <AdsCardImage image={image} alt={name} />
             <div className="flex justify-between items-start mb-2">
-                <h3 className="text-xl font-semibold ">{item.name}</h3>
-                <span className={`px-2 py-1 rounded text-xs font-medium ${getTypeColor(item.type)}`}>
-                    {item.type}
+                <h3 className="text-xl font-semibold ">{name}</h3>
+                <span className={`px-2 py-1 rounded text-xs font-medium ${getTypeColor(type)}`}>
+                    {type}
                 </span>
             </div>
-            <p className=" mb-3">{item.description}</p>
+            <p className=" mb-3">{description}</p>
             <p className="text-sm text-gray-500 mb-3">
-                📍 {item.location}
+                📍 {location}
             </p>
 
             {Object.entries(uniqueFields).map(([k, v]) => {
+                const translatedField = fieldTranslations[k] || k
                 return (
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                        {/* <div> */}
-                            <span className="text-gray-500">{k}</span> <span className="font-medium">{v}</span>
-                        {/* </div> */}
+                    <div key={k} className="grid grid-cols-2 gap-2 text-sm">
+                        <span className="text-gray-500">{translatedField}</span>
+                        <span className="font-medium">{v}</span>
                     </div>
                 )
             })}
@@ -52,4 +66,3 @@ const AdsCard = ({ item }: { item: Item }) => {
 }
 
 export default AdsCard
-
