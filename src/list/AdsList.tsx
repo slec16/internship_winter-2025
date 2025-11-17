@@ -23,18 +23,15 @@ const AdsList = ({ adsList }: { adsList: Item[] }) => {
     const headerBlocks: Record<ItemType, HeaderBlockConfig> = {
         'Недвижимость': {
             icon: <HomeIcon sx={{ color: '#166534' }} />,
-            // class: 'bg-green-100/70 dark:bg-green-900/30',
-            class: 'bg-slate-100 dark:bg-gray-800',
+            class: 'bg-[#F2F1F0] dark:bg-slate-800',
         },
         'Авто': {
             icon: <DirectionsCarIcon sx={{ color: '#1e40af' }} />,
-            // class: 'bg-sky-100/70 dark:bg-sky-900/30',
-            class: 'bg-gray-100 dark:bg-gray-800',
+            class: 'bg-[#F2F1F0] dark:bg-slate-800',
         },
         'Услуги': {
             icon: <ServicesIcon sx={{ color: '#7e22ce' }} />,
-            // class: 'bg-purple-100/70 dark:bg-purple-900/30',
-            class: 'bg-gray-100 dark:bg-gray-800',
+            class: 'bg-[#F2F1F0] dark:bg-slate-800',
         },
     }
 
@@ -114,7 +111,7 @@ const AdsList = ({ adsList }: { adsList: Item[] }) => {
                         </button>
                     )
                 })}
-                <div className="flex flex-row items-center flex-1 px-2 bg-slate-100 dark:bg-slate-800 rounded-md">
+                <div className={`flex flex-row items-center flex-1 px-2 py-2 sm:py-0 bg-[#F2F1F0] dark:bg-slate-800 rounded-md ${activeTab !== 'Все' && 'rounded-b-none'}`}>
                     <TextField
                         fullWidth
                         value={searchQuery}

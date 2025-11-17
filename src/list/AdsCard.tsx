@@ -37,7 +37,7 @@ const AdsCard = ({ item }: { item: Item }) => {
     return (
         <Link
             to={`/item/${id}`}
-            className="block p-4 rounded-lg hover:shadow-lg transition-shadow"
+            className="block p-4 rounded-lg"
         >
             <AdsCardImage image={image} alt={name} />
             <div className="flex justify-between items-start mb-2">
