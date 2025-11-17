@@ -25,8 +25,8 @@ const List = () => {
     if (error) return <p>Возникла ошибка</p>
     return(
         <div className="flex flex-col">
-            <div className="flex justify-between items-center mb-5">
-                <h1 className="text-3xl font-bold ">Объявления</h1>
+            <div className="flex justify-between items-center mb-2 px-2">
+                <h1 className="text-3xl font-bold ">Мои объявления</h1>
                 <Button
                     onClick={handleCreateRandom}
                     disabled={isCreating}

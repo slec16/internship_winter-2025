@@ -11,8 +11,8 @@ export const getMuiTheme = (mode: 'light' | 'dark') => {
         main: mode === 'light' ? '#dc004e' : '#f48fb1',
       },
       background: {
-        default: mode === 'light' ? '#e2e8f0' : '#1e1e1e',
-        paper: mode === 'light' ? '#e2e8f0' : '#1e1e1e',
+        default: mode === 'light' ? '#ffffff' : '#1e1e1e',
+        paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
       },
     },
     typography: {
