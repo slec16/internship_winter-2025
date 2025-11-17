@@ -5,14 +5,14 @@ export const getMuiTheme = (mode: 'light' | 'dark') => {
     palette: {
       mode,
       primary: {
-        main: mode === 'light' ? '#1976d2' : '#ff9800',
+        main: '#2563eb',
       },
       secondary: {
-        main: mode === 'light' ? '#dc004e' : '#f48fb1',
+        main: '#64748b',
       },
       background: {
-        default: mode === 'light' ? '#ffffff' : '#1e1e1e',
-        paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
+        default: mode === 'light' ? '#f8fafc' : '#0f172a',
+        paper: mode === 'light' ? '#ffffff' : '#0f172a',
       },
     },
     typography: {
