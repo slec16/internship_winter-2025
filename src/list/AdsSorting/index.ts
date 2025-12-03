@@ -1,5 +1,5 @@
 import AdsSortingAuto from "./AdsSortingAuto"
 import AdsSortingProperty from "./AdsSortingProperty"
 import AdsSortingService from "./AdsSortingService"
-
-export { AdsSortingAuto, AdsSortingProperty, AdsSortingService }
+import TestAdsSortingProperty from "./TestAdsSortingProperty"
+export { AdsSortingAuto, AdsSortingProperty, AdsSortingService, TestAdsSortingProperty }

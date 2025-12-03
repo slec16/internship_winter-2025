@@ -1,6 +1,7 @@
 import type { Item } from "../types/items"
 import { Link } from "react-router-dom"
 import AdsCardImage from "./AdsCardImage"
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 const fieldTranslations: Record<string, string> = {
     propertyType: 'Тип недвижимости',
@@ -48,7 +49,7 @@ const AdsCard = ({ item }: { item: Item }) => {
             </div>
             <p className=" mb-3">{description}</p>
             <p className="text-sm text-gray-500 mb-3">
-                📍 {location}
+                <LocationOnIcon /> {location}
             </p>
 
             {Object.entries(uniqueFields).map(([k, v]) => {

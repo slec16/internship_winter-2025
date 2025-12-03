@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import AdsCard from "./AdsCard"
 import type { Item, ItemType } from "../types/items"
 import type { AutoFilters, PropertyFilters, ServiceFilters } from "../types/filters"
-import { AdsSortingAuto, AdsSortingProperty, AdsSortingService } from "./AdsSorting"
+import { AdsSortingAuto, AdsSortingProperty, AdsSortingService, TestAdsSortingProperty } from "./AdsSorting"
 import HomeIcon from '@mui/icons-material/Home'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import ServicesIcon from '@mui/icons-material/Build'
@@ -104,14 +104,14 @@ const AdsList = ({ adsList }: { adsList: Item[] }) => {
                             role="tab"
                             aria-selected={isActive}
                             onClick={() => setActiveTab(prev => prev === key ? 'Все' : key)}
-                            className={`flex flex-row items-center gap-2 rounded-md px-2 py-4 shadow-x aria-selected:rounded-b-none ${isActive ? headerBlocks[key].class : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                            className={`flex flex-row items-center gap-2 rounded-3xl px-4 py-4 shadow-x aria-selected:rounded-b-none ${isActive ? headerBlocks[key].class : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                         >
                             {headerBlocks[key].icon}
                             <h2 className="text-sm font-bold">{item}</h2>
                         </button>
                     )
                 })}
-                <div className={`flex flex-row items-center flex-1 px-2 py-2 sm:py-0 bg-[#F2F1F0] dark:bg-slate-800 rounded-md ${activeTab !== 'Все' && 'rounded-b-none'}`}>
+                <div className={`flex flex-row items-center flex-1 px-2 py-2 sm:py-0 bg-[#F2F1F0] dark:bg-slate-800 rounded-3xl ${activeTab !== 'Все' && 'rounded-b-none'}`}>
                     <TextField
                         fullWidth
                         value={searchQuery}
@@ -144,7 +144,8 @@ const AdsList = ({ adsList }: { adsList: Item[] }) => {
             </div>
 
             {activeTab === 'Авто' && <AdsSortingAuto className={headerBlocks[activeTab].class} value={autoFilters} onChange={setAutoFilters} />}
-            {activeTab === 'Недвижимость' && <AdsSortingProperty className={headerBlocks[activeTab].class} value={propertyFilters} onChange={setPropertyFilters} />}
+            {/* {activeTab === 'Недвижимость' && <AdsSortingProperty className={headerBlocks[activeTab].class} value={propertyFilters} onChange={setPropertyFilters} />} */}
+            {activeTab === 'Недвижимость' && <TestAdsSortingProperty className={headerBlocks[activeTab].class} />}
             {activeTab === 'Услуги' && <AdsSortingService className={headerBlocks[activeTab].class} value={serviceFilters} onChange={setServiceFilters} />}
             {activeTab === 'Все' && <div className="h-10" />}
 
