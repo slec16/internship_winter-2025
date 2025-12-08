@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import ErrorBoundary from './components/ErrorBoundary.tsx'
+import ErrorBoundary from '@app/providers/error-boundary'
 import { Provider } from 'react-redux'
-import { store } from './store/index.ts'
-import './index.css'
-import App from './App.tsx'
+import { store } from '@app/providers/store'
+import '@app/styles/index.css'
+import App from '@app/App'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
