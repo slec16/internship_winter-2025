@@ -1,8 +1,7 @@
 // context/ThemeContext.tsx
 import { createContext, useContext, useState, useEffect } from 'react'
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
-import { getMuiTheme } from './muiTheme'
+import { system } from './theme'
+import { ChakraProvider } from '@chakra-ui/react'
 import type { Theme, ThemeContextType, ThemeProviderProps } from '@shared/types/theme'
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -22,7 +21,6 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
         return defaultTheme
     })
 
-    const muiTheme = getMuiTheme(theme)
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme)
@@ -59,14 +57,14 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
 
     return (
         <ThemeContext.Provider value={value}>
-            <MuiThemeProvider theme={muiTheme}>
-                <CssBaseline />
+            <ChakraProvider value={system}>
                 {children}
-            </MuiThemeProvider>
+            </ChakraProvider>
         </ThemeContext.Provider>
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = (): ThemeContextType => {
     const context = useContext(ThemeContext)
     if (context === undefined) {
