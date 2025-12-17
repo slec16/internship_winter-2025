@@ -141,6 +141,7 @@ const config = defineConfig({
                 danger: {
                     value: { base: "{colors.red.500}", _dark: "{colors.red.400}" },
                 },
+                // Button
                 buttonPrimary: {
                     value: { base: "{colors.brand.600}", _dark: "{colors.brand.500}" },
                 },
@@ -158,6 +159,35 @@ const config = defineConfig({
                 },
                 buttonSecondaryFg: {
                     value: { base: "{colors.gray.900}", _dark: "{colors.gray.100}" },
+                },
+                // Tabs theming
+                tabsBg: {
+                    value: { base: "{colors.gray.100}", _dark: "{colors.gray.800}" },
+                },
+                tabsText: {
+                    value: { base: "{colors.gray.600}", _dark: "{colors.gray.400}" },
+                },
+                tabsActiveText: {
+                    value: { base: "{colors.gray.900}", _dark: "{colors.gray.50}" },
+                },
+                tabsIndicator: {
+                    value: { base: "{colors.white}", _dark: "{colors.gray.700}" },
+                },
+                tabsIcon: {
+                    value: { base: "{colors.blue.500}", _dark: "{colors.blue.400}" },
+                },
+                // Input theming
+                inputBg: {
+                    value: { base: "{colors.white}", _dark: "{colors.gray.700}" },
+                },
+                inputBorder: {
+                    value: { base: "{colors.gray.300}", _dark: "{colors.gray.600}" },
+                },
+                inputFocusBorder: {
+                    value: { base: "{colors.blue.500}", _dark: "{colors.blue.400}" },
+                },
+                inputPlaceholder: {
+                    value: { base: "{colors.gray.400}", _dark: "{colors.gray.500}" },
                 },
             },
         },

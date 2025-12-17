@@ -19,7 +19,7 @@ const List = () => {
     return (
         <>
             <Flex direction="row" gapX="5">
-                <Box>
+                <Box w="1/3">
                     <AdsFilter />
                 </Box>
                 <Box w="full">

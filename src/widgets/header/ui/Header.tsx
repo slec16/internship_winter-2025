@@ -51,7 +51,7 @@ const Header = () => {
                 >
                     <AccountCircleIcon />
                 </IconButton>
-                <Button 
+                <Button
                     onClick={handleCreateRandom}
                     variant="solid"
                     bg="buttonPrimary"
