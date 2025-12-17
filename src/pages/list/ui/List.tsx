@@ -1,10 +1,8 @@
-import { useGetItemsQuery } from "@shared/api/itemsApi"
-import AdsList from "@widgets/ads-list"
-import LoadingSpinner from "@shared/ui/LoadingSpinner"
+import AdsList from "@widgets/list"
 import { AdsFilter } from "@/features/ads-filter"
 import Search from "@/features/ads-search"
-import { Box, Flex, Input } from "@chakra-ui/react"
-import SearchIcon from '@mui/icons-material/Search'
+import { useGetItemsQuery } from "@shared/api/itemsApi"
+import { Box, Flex } from "@chakra-ui/react"
 
 const List = () => {
 
@@ -15,7 +13,6 @@ const List = () => {
 
 
 
-    // if (isLoading) return <div className="items-center flex justify-center"><LoadingSpinner /></div>
     if (error) return <p>Возникла ошибка</p>
     return (
         <>
@@ -25,7 +22,9 @@ const List = () => {
                 </Box>
                 <Box w="full">
                     <Search />
-                    <div>here list</div>
+                    <AdsList 
+                        data={data}
+                    />
                 </Box>
             </Flex>
         </>
