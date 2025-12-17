@@ -27,7 +27,7 @@ const AutoFilter = () => {
     return (
         <Box 
             bg="cardBg" 
-            rounded="2xl" 
+            rounded="lg" 
             p="5"
             borderWidth="1px"
             borderColor="border"
