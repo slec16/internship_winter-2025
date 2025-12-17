@@ -2,6 +2,7 @@ import { useGetItemsQuery } from "@shared/api/itemsApi"
 import AdsList from "@widgets/ads-list"
 import LoadingSpinner from "@shared/ui/LoadingSpinner"
 import { AdsFilter } from "@/features/ads-filter"
+import Search from "@/features/ads-search"
 import { Box, Flex, Input } from "@chakra-ui/react"
 import SearchIcon from '@mui/icons-material/Search'
 
@@ -23,9 +24,7 @@ const List = () => {
                     <AdsFilter />
                 </Box>
                 <Box w="full">
-                    <Input
-                        placeholder="Поиск..."
-                    />
+                    <Search />
                     <div>here list</div>
                 </Box>
             </Flex>
