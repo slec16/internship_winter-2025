@@ -1,8 +1,9 @@
 import ListCard from "./ListCard"
 import { Stack } from "@chakra-ui/react"
+import { type Item } from "@/shared/types/items"
 
 interface ListProps {
-    data: any[]
+    data: Item[]
 }
 
 const List = (props: ListProps) => {
@@ -12,9 +13,9 @@ const List = (props: ListProps) => {
     console.log(data)
 
     return(
-        <Stack direction="column">
+        <Stack direction="column" w="full">
             {data.map((item) => (
-                <ListCard key={item.id} />
+                <ListCard key={item.id} itemData={item}/>
             ))}
         </Stack>
     )

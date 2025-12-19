@@ -6,11 +6,23 @@ export const semanticColors = {
     cardBg: {
         value: { base: "{colors.gray.200}", _dark: "{colors.gray.800}" },
     },
+    hoverCardBg: {
+        value: { base: "{colors.gray.200}", _dark: "{colors.gray.800}" }
+    },
     text: {
         value: { base: "{colors.gray.900}", _dark: "{colors.gray.100}" },
     },
+    secondaryText: {
+        value: { base: "{colors.gray.600}", _dark: "{colors.gray.300}" }
+    },
     mutedText: {
         value: { base: "{colors.gray.600}", _dark: "{colors.gray.400}" },
+    },
+    fieldLabelColor: {
+        value: { base: "{colors.gray.400}", _dark: "{colors.gray.500}" },
+    },
+    fieldValueColor: {
+        value: { base: "{colors.gray.700}", _dark: "{colors.gray.200}" },
     },
     primary: {
         value: { base: "{colors.brand.600}", _dark: "{colors.brand.400}" },

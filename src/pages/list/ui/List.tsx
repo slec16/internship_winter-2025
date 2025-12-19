@@ -22,9 +22,10 @@ const List = () => {
                 </Box>
                 <Box w="full">
                     <Search />
-                    <AdsList 
+                    {data && <AdsList 
                         data={data}
-                    />
+                    />}
+                    
                 </Box>
             </Flex>
         </>

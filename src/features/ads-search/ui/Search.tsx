@@ -25,6 +25,7 @@ const Search = () => {
             <InputGroup
                 startElement={<LuSearch />}
                 endElement={endElement}
+                mb="2"
             >
                 <Input
                     ref={inputRef}
