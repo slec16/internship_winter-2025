@@ -7,6 +7,12 @@ import {
     IconButton,
     Carousel,
     Dialog,
+    Flex,
+    Heading,
+    FormatNumber,
+    VStack,
+    Button,
+    Breadcrumb
 } from "@chakra-ui/react"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 import { useGetItemByIdQuery } from "@shared/api/itemsApi"
@@ -64,7 +70,7 @@ const Item = () => {
     }
 
     const { name, image, ...uniqueFields } = item
-
+    console.log(uniqueFields)
     const displayFields = Object.entries(uniqueFields).filter(
         ([key]) => fieldTranslations[key],
     )
@@ -80,6 +86,36 @@ const Item = () => {
     return (
         <>
             <Box px="10">
+                <VStack gap='2'>
+                    <Flex width="full" direction="row" alignItems="center" justifyContent="space-between">
+                        <Heading
+                            size="3xl"
+                        >
+                            {name}
+                        </Heading >
+                        <Text textStyle="3xl">
+                            <FormatNumber value={item.price} style="currency" currency="RUB" />
+                        </Text>
+                    </Flex>
+                    <Flex width="full" direction="row" alignItems="center" justifyContent="space-between">
+                        <Breadcrumb.Root>
+                            <Breadcrumb.List>
+                                <Breadcrumb.Item>
+                                    <Breadcrumb.Link href="#">Главная</Breadcrumb.Link>
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Separator />
+                                <Breadcrumb.Item>
+                                    <Breadcrumb.Link href="#">{uniqueFields.type}</Breadcrumb.Link>
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Separator />
+                                <Breadcrumb.Item>
+                                    <Breadcrumb.CurrentLink>{name}</Breadcrumb.CurrentLink>
+                                </Breadcrumb.Item>
+                            </Breadcrumb.List>
+                        </Breadcrumb.Root>
+                        <Button bg="green" opacity="80%">Редактировать</Button>
+                    </Flex>
+                </VStack>
                 {images.length > 0 && (
                     <Carousel.Root
                         slideCount={images.length}
@@ -87,11 +123,24 @@ const Item = () => {
                         gap="4"
                         mb={4}
                     >
-                        <Carousel.Control justifyContent="center" gap="4" width="full">
+                        <Carousel.Control
+                            justifyContent="center"
+                            // gap="4"
+                            width="full"
+                            alignItems="stretch"
+                            minH="400px"
+                        >
                             <Carousel.PrevTrigger asChild>
-                                <IconButton size="xs" variant="outline" aria-label="Предыдущее фото">
-                                    <LuChevronLeft />
-                                </IconButton>
+                                <Box>
+                                    <IconButton
+                                        size="xs"
+                                        height="100%"
+                                        variant="outline"
+                                        aria-label="Предыдущее фото"
+                                    >
+                                        <LuChevronLeft />
+                                    </IconButton>
+                                </Box>
                             </Carousel.PrevTrigger>
 
                             <Carousel.ItemGroup width="full" alignItems="center">
@@ -113,9 +162,16 @@ const Item = () => {
                             </Carousel.ItemGroup>
 
                             <Carousel.NextTrigger asChild>
-                                <IconButton size="xs" variant="outline" aria-label="Следующее фото">
-                                    <LuChevronRight />
-                                </IconButton>
+                                <Box>
+                                    <IconButton
+                                        size="xs"
+                                        variant="outline"
+                                        aria-label="Следующее фото"
+                                        h="100%"
+                                    >
+                                        <LuChevronRight />
+                                    </IconButton>
+                                </Box>
                             </Carousel.NextTrigger>
                         </Carousel.Control>
 
@@ -148,16 +204,10 @@ const Item = () => {
                                 </Carousel.Indicator>
                             ))}
                         </Carousel.IndicatorGroup>
-                </Carousel.Root>
-            )}
+                    </Carousel.Root>
+                )}
 
-                <Text
-                    fontSize="lg"
-                    fontWeight="600"
-                    mb={2}
-                >
-                    {name}
-                </Text>
+
 
                 {displayFields.map(([key, value]) => (
                     <Text key={key}>
