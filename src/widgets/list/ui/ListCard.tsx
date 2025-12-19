@@ -108,8 +108,6 @@ const ListCard = (props: ListCardProps) => {
                             </Text>
                         )}
                         </Box>
-
-                      
                     </Flex>
 
                     {/* Location */}
