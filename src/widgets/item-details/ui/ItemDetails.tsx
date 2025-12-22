@@ -18,8 +18,7 @@ const ItemDetails = (props: ItemDetailsProps) => {
 
     const { item } = props
 
-    
-    const { name, image, ...uniqueFields } = item
+    const { name, image, description, location, ...uniqueFields } = item
     const displayFields = Object.entries(uniqueFields).filter(
         ([key]) => fieldTranslations[key],
     )
@@ -44,7 +43,7 @@ const ItemDetails = (props: ItemDetailsProps) => {
             {images.length > 0 && (
                 <ItemGallery images={images} name={item.name}/>
             )}
-            <ItemAttributes displayFields={displayFields} />
+            <ItemAttributes description={description} location={location} displayFields={displayFields} />
         </>
     )
 }
