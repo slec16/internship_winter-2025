@@ -6,8 +6,7 @@ import {
     Box,
     Flex,
 } from "@chakra-ui/react"
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import { LuMapPin } from "react-icons/lu";
+import { LuMapPin } from "react-icons/lu"
 import { fieldTranslations } from "../lib/field-translation"
 import { formatValue } from "../lib/format-value"
 
@@ -24,14 +23,6 @@ const ItemAttributes = (props: ItemAttributesProps) => {
         <VStack align="stretch" gap={6} mt={4} w={{ base: "100%", md: "50%" }}>
             {location && (
                 <Box>
-                    {/* <Text
-                        fontSize="md"
-                        fontWeight="600"
-                        color="text"
-                        mb={2}
-                    >
-                        Локация
-                    </Text> */}
                     <HStack gap={1} alignItems="center">
                         <Icon fontSize="sm">
                             <LuMapPin />
@@ -54,7 +45,6 @@ const ItemAttributes = (props: ItemAttributesProps) => {
                 </Box>
             )}
 
-            {/* Описание */}
             {description && (
                 <Box>
                     <Text
@@ -74,7 +64,6 @@ const ItemAttributes = (props: ItemAttributesProps) => {
                 </Box>
             )}
 
-            {/* Характеристики */}
             {displayFields.length > 0 && (
                 <Box>
                     <Text
