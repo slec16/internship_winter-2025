@@ -29,7 +29,7 @@ const Item = () => {
 
     return (
         <>
-            <Box px="10">
+            <Box p="5">
                 <ItemDetails item={item} />
             </Box>
 

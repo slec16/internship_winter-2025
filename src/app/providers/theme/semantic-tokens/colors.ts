@@ -67,6 +67,14 @@ export const semanticColors = {
     buttonSecondaryFg: {
         value: { base: "{colors.gray.900}", _dark: "{colors.gray.100}" },
     },
+
+    // Gallery Button
+    bgGalleryButtonHover: {
+        value: { base: "{colors.gray.200}", _dark: "{colors.gray.700}" }
+    },
+    colorGalleryButtonHover: {
+        value: { base: "{colors.gray.900}", _dark: "{colors.gray.400}" }
+    },
     
     // Tabs
     tabsBg: {

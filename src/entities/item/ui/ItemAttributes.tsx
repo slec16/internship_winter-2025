@@ -7,6 +7,7 @@ import {
     Flex,
 } from "@chakra-ui/react"
 import LocationOnIcon from '@mui/icons-material/LocationOn'
+import { LuMapPin } from "react-icons/lu";
 import { fieldTranslations } from "../lib/field-translation"
 import { formatValue } from "../lib/format-value"
 
@@ -21,32 +22,45 @@ const ItemAttributes = (props: ItemAttributesProps) => {
 
     return (
         <VStack align="stretch" gap={6} mt={4} w={{ base: "100%", md: "50%" }}>
-            <Text
-                fontSize="md"
-                fontWeight="600"
-                color="text"
-                mb={2}
-            >
-                Локация
-            </Text>
-            {/* Локация */}
-            <HStack gap={1} color="mutedText">
-                <Icon fontSize="sm">
-                    <LocationOnIcon sx={{ fontSize: 16 }} />
-                </Icon>
-                <Text fontSize="sm">
-                    {location}
-                </Text>
-            </HStack>
+            {location && (
+                <Box>
+                    {/* <Text
+                        fontSize="md"
+                        fontWeight="600"
+                        color="text"
+                        mb={2}
+                    >
+                        Локация
+                    </Text> */}
+                    <HStack gap={1} alignItems="center">
+                        <Icon fontSize="sm">
+                            <LuMapPin />
+                        </Icon>
+                        <Text
+                            fontSize="lg"
+                            fontWeight="700"
+                            color="text"
+                        >
+                            Локация
+                        </Text>
+                    </HStack>
+                    <Text
+                        fontSize="md"
+                        color="secondaryText"
+                        lineHeight="tall"
+                    >
+                        {location}
+                    </Text>
+                </Box>
+            )}
 
             {/* Описание */}
             {description && (
                 <Box>
                     <Text
-                        fontSize="md"
-                        fontWeight="600"
+                        fontSize="lg"
+                        fontWeight="700"
                         color="text"
-                        mb={2}
                     >
                         Описание
                     </Text>
@@ -64,10 +78,9 @@ const ItemAttributes = (props: ItemAttributesProps) => {
             {displayFields.length > 0 && (
                 <Box>
                     <Text
-                        fontSize="md"
-                        fontWeight="600"
+                        fontSize="lg"
+                        fontWeight="700"
                         color="text"
-                        mb={3}
                     >
                         Характеристики
                     </Text>
@@ -77,7 +90,7 @@ const ItemAttributes = (props: ItemAttributesProps) => {
                                 key={key}
                                 justifyContent="space-between"
                                 alignItems="center"
-                                py={2}
+                                pb={2}
                             >
                                 <Text
                                     fontSize="sm"
