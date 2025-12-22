@@ -3,41 +3,12 @@ import { type Item } from "@/shared/types/items"
 import ListCardImage from "./ListCardImage"
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import { Link } from "react-router-dom"
+import { fieldTranslations, formatValue } from "@entities/item"
 
 interface ListCardProps {
     itemData: Item
 }
 
-const fieldTranslations: Record<string, string> = {
-    propertyType: 'Тип',
-    area: 'Площадь',
-    rooms: 'Комнат',
-    price: 'Цена',
-    brand: 'Марка',
-    model: 'Модель',
-    year: 'Год',
-    mileage: 'Пробег',
-    serviceType: 'Услуга',
-    experience: 'Опыт',
-    cost: 'Стоимость',
-    workSchedule: 'График'
-}
-
-const formatValue = (key: string, value: unknown): string => {
-    if (key === 'price' || key === 'cost') {
-        return `${Number(value).toLocaleString('ru-RU')} ₽`
-    }
-    if (key === 'area') {
-        return `${value} м²`
-    }
-    if (key === 'mileage') {
-        return `${Number(value).toLocaleString('ru-RU')} км`
-    }
-    if (key === 'experience') {
-        return `${value} лет`
-    }
-    return String(value)
-}
 
 
 
