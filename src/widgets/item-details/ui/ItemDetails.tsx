@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import {
     VStack,
     Flex,
@@ -16,6 +17,8 @@ interface ItemDetailsProps {
 
 const ItemDetails = (props: ItemDetailsProps) => {
 
+    const navigate = useNavigate()
+
     const { item } = props
 
     const { name, image, description, location, ...uniqueFields } = item
@@ -32,18 +35,18 @@ const ItemDetails = (props: ItemDetailsProps) => {
 
     return(
         <>
-            <VStack gap='2' mb="3">
+            <VStack gap='4' mb="3">
                 {/* TODO: price */}
                 <ItemHeader name={name} price={item.price} />
                 <Flex width="full" direction="row" alignItems="center" justifyContent="space-between">
                     <ItemBreadcrumbs type={item.type} name={item.name} />
-                    <Button bg="green" opacity="80%">Редактировать</Button>
                 </Flex>
             </VStack>
             {images.length > 0 && (
                 <ItemGallery images={images} name={item.name}/>
             )}
             <ItemAttributes description={description} location={location} displayFields={displayFields} />
+            <Button onClick={() => navigate("/form")} my="5" bg="green" opacity="80%">Редактировать</Button>
         </>
     )
 }

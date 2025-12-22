@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { Flex, Text, Button, IconButton, HStack } from '@chakra-ui/react'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import SunnyIcon from '@mui/icons-material/Sunny'
@@ -8,26 +9,29 @@ import generateRandomItem from '@/shared/lib/randomItem'
 
 const Header = () => {
 
+    // const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
-    const [ createItem, { isLoading: isCreating } ] = useCreateItemMutation()
+    const [createItem, { isLoading: isCreating }] = useCreateItemMutation()
 
-    const handleCreateRandom = async() => {
-        try{
+    const handleCreateRandom = async () => {
+        try {
             const randomItem = generateRandomItem()
             await createItem(randomItem).unwrap()
-        } catch(err) {
+        } catch (err) {
             console.error(err)
         }
-    }   
+    }
 
     return (
         <Flex as="header" w="full" justify="space-between" px={3} py={5}>
-            <Text fontSize="4xl" fontWeight="bold" >Avito clone</Text>
+            <Link to={"/"} style={{ textDecoration: 'none' }}>
+                <Text fontSize="4xl" fontWeight="bold" _hover={{color:"accent"}}>Avito clone</Text>
+            </Link>
             <HStack gap={2}>
-                <IconButton 
-                    aria-label="Toggle color mode" 
-                    onClick={toggleTheme} 
-                    variant="ghost" 
+                <IconButton
+                    aria-label="Toggle color mode"
+                    onClick={toggleTheme}
+                    variant="ghost"
                     rounded="full"
                     size="lg"
                     color={theme === 'light' ? 'gray.700' : 'gray.300'}
@@ -38,9 +42,9 @@ const Header = () => {
                 >
                     {theme === 'light' ? <DarkModeIcon /> : <SunnyIcon />}
                 </IconButton>
-                <IconButton 
+                <IconButton
                     aria-label="Account"
-                    variant="ghost" 
+                    variant="ghost"
                     rounded="full"
                     size="lg"
                     color={theme === 'light' ? 'gray.700' : 'gray.300'}
