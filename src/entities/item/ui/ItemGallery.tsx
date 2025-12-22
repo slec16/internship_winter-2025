@@ -36,11 +36,17 @@ const ItemGallery = (props: ItemGalleryProps) => {
                 >
                     <Carousel.PrevTrigger asChild>
                         <Box>
+                            {/* TODO: last/first disabled */}
                             <IconButton
                                 size="xs"
                                 height="100%"
-                                variant="outline"
+                                variant="ghost"
+                                roundedRight="none"
                                 aria-label="Предыдущее фото"
+                                _hover={{
+                                    bg: "bgGalleryButtonHover",
+                                    color: "colorGalleryButtonHover"
+                                }}
                             >
                                 <LuChevronLeft />
                             </IconButton>
@@ -50,16 +56,46 @@ const ItemGallery = (props: ItemGalleryProps) => {
                     <Carousel.ItemGroup width="full" alignItems="center">
                         {images.map((url, index) => (
                             <Carousel.Item key={url} index={index}>
-                                <Box w="100%" display="flex" justifyContent="center" borderWidth={"2px"}>
-                                    <Image
-                                        src={url}
-                                        alt={name}
+                                <Box
+                                    w="100%"
+                                    display="flex"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    position="relative"
+                                    minH="400px"
+                                    bgSize="cover"
+                                    style={{
+                                        backgroundImage: `url(${url})`
+                                    }}
+                                >
+                                    <Box
+                                        position="absolute"
+                                        top="0"
+                                        left="0"
+                                        width="100%"
+                                        height="100%"
+                                        backdropFilter="blur(30px)"
+                                        bg="blackAlpha.100"
+                                    />
+
+                                    <Box
+                                        position="relative"
+                                        zIndex="1"
                                         maxH="400px"
                                         maxW="100%"
-                                        objectFit="contain"
                                         cursor="pointer"
                                         onClick={() => setPreviewUrl(url)}
-                                    />
+                                    >
+                                        <Image
+                                            src={url}
+                                            alt={name}
+                                            objectFit="contain"
+                                            width="auto"
+                                            height="auto"
+                                            maxH="400px"
+                                            maxW="100%"
+                                        />
+                                    </Box>
                                 </Box>
                             </Carousel.Item>
                         ))}
@@ -69,9 +105,14 @@ const ItemGallery = (props: ItemGalleryProps) => {
                         <Box>
                             <IconButton
                                 size="xs"
-                                variant="outline"
+                                variant="ghost"
+                                roundedLeft="none"
                                 aria-label="Следующее фото"
                                 h="100%"
+                                _hover={{
+                                    bg: "bgGalleryButtonHover",
+                                    color: "colorGalleryButtonHover"
+                                }}
                             >
                                 <LuChevronRight />
                             </IconButton>
@@ -120,18 +161,42 @@ const ItemGallery = (props: ItemGalleryProps) => {
             >
                 <Dialog.Backdrop />
                 <Dialog.Positioner>
-                    <Dialog.Content>
-                        <Dialog.CloseTrigger />
-                        {previewUrl && (
-                            <Image
-                                src={previewUrl}
-                                alt={name}
-                                // maxW="90vw"
-                                // maxH="80vh"
-                                objectFit="contain"
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        minH="100vh"
+                    >
+                        <Dialog.Content
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            mx="auto"
+                            p="0"
+                            bg="transparent"
+                            boxShadow="none"
+                        >
+                            <Dialog.CloseTrigger
+                                position="absolute"
+                                top="2"
+                                right="2"
+                                zIndex="10"
+                                color="white"
+                                bg="blackAlpha.600"
+                                _hover={{ bg: "blackAlpha.800" }}
                             />
-                        )}
-                    </Dialog.Content>
+                            {previewUrl && (
+                                <Image
+                                    src={previewUrl}
+                                    alt={name}
+                                    maxW="100%"
+                                    maxH="100%"
+                                    objectFit="contain"
+                                    borderRadius="lg"
+                                />
+                            )}
+                        </Dialog.Content>
+                    </Box>
                 </Dialog.Positioner>
             </Dialog.Root>
         </>
