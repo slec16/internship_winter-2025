@@ -42,6 +42,7 @@ const ItemDetails = (props: ItemDetailsProps) => {
                     <ItemBreadcrumbs type={item.type} name={item.name} />
                 </Flex>
             </VStack>
+            {/* TODO: заглушка */}
             {images.length > 0 && (
                 <ItemGallery images={images} name={item.name}/>
             )}
