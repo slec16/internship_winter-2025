@@ -1,4 +1,5 @@
-import { formatValue } from "./lib/format-value"
-import { fieldTranslations } from "./lib/field-translation"
-
-export { formatValue, fieldTranslations }
+export { formatValue } from "./lib/format-value"
+export { fieldTranslations } from "./lib/field-translation"
+export { default as ItemAttributes } from "./ui/ItemAttributes"
+export { default as ItemGallery } from "./ui/ItemGallery"
+export { default as ItemHeader } from "./ui/ItemHeader"

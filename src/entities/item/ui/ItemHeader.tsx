@@ -21,9 +21,13 @@ const ItemHeader = (props: ItemHeaderProps) => {
             >
                 {name}
             </Heading >
+            {price ? 
             <Text textStyle="3xl">
                 <FormatNumber value={price} style="currency" currency="RUB" />
             </Text>
+            :
+            <Text textStyle="xl">Цена не указана</Text>
+            }
         </Flex>
     )
 }
