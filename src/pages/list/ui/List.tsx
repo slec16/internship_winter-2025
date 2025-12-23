@@ -3,17 +3,23 @@ import { AdsFilter } from "@/features/ads-filter"
 import Search from "@/features/ads-search"
 import { useGetItemsQuery } from "@shared/api/itemsApi"
 import { Box, Flex } from "@chakra-ui/react"
+import { useQueryParams } from "@shared/lib/useQueryParams"
+import { useMemo } from "react"
+import { filterItemsByType } from "@/features/ads-filter/lib/filterByType"
 
 const List = () => {
-
+    const { searchParams } = useQueryParams()
     const { data, error, isLoading } = useGetItemsQuery()
 
+    const filteredData = useMemo(() => {
+        if (!data) return []
 
-    // console.log(data, error, isLoading)
-
-
+        const filterType = searchParams.get('filterType')
+        return filterItemsByType(data, filterType)
+    }, [data, searchParams])
 
     if (error) return <p>Возникла ошибка</p>
+    if (isLoading) return <p>Загрузка...</p>
     return (
         <>
             <Flex direction="row" gapX="5">
@@ -22,8 +28,8 @@ const List = () => {
                 </Box>
                 <Box w="full">
                     <Search />
-                    {data && <AdsList 
-                        data={data}
+                    {filteredData && <AdsList 
+                        data={filteredData}
                     />}
                     
                 </Box>

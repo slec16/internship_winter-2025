@@ -1,13 +1,34 @@
 import { Box, Input, Stack, Text, Button } from "@chakra-ui/react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useQueryParams } from "@shared/lib/useQueryParams"
 
 const PropertyFilter = () => {
-
-    // TODO: валидация
+    const { searchParams, setSearchParams } = useQueryParams()
     
-    const propertyTypes = ["Квартира", "Дом/Дача/Коттедж", "Участок", "Гараж", "Коммерчиская недвижемость", "Недвижемость за рубежом"]
+    const propertyTypes = ["Квартира", "Дом", "Участок", "Гараж", "Коммерчиская недвижемость", "Недвижемость за рубежом"]
     const [selectedTypes, setSelectedTypes] = useState<string[]>([])
     const [rooms, setRooms] = useState<number[]>([])
+    const [areaFrom, setAreaFrom] = useState("")
+    const [areaTo, setAreaTo] = useState("")
+    const [priceFrom, setPriceFrom] = useState("")
+    const [priceTo, setPriceTo] = useState("")
+
+    useEffect(() => {
+        const propertyTypesParam = searchParams.get('propertyTypes')
+        if (propertyTypesParam) {
+            setSelectedTypes(propertyTypesParam.split(',').map(t => t.trim()).filter(Boolean))
+        }
+
+        const roomsParam = searchParams.get('rooms')
+        if (roomsParam) {
+            setRooms(roomsParam.split(',').map(r => Number(r.trim())).filter(n => !isNaN(n)))
+        }
+
+        setAreaFrom(searchParams.get('areaFrom') || '')
+        setAreaTo(searchParams.get('areaTo') || '')
+        setPriceFrom(searchParams.get('priceFrom') || '')
+        setPriceTo(searchParams.get('priceTo') || '')
+    }, [])//eslint-disable-line react-hooks/exhaustive-deps
 
     const toggleType = (type: string) => {
         setSelectedTypes(prev => 
@@ -24,21 +45,31 @@ const PropertyFilter = () => {
                 : [...prev, room]
         )
     }
-    const [areaFrom, setAreaFrom] = useState("")
-    const [areaTo, setAreaTo] = useState("")
-    const [priceFrom, setPriceFrom] = useState("")
-    const [priceTo, setPriceTo] = useState("")
 
     const handleSubmit = () => {
-        const filterData = {
-            propertyTypes: selectedTypes,
-            rooms,
-            areaFrom: areaFrom ? Number(areaFrom) : null,
-            areaTo: areaTo ? Number(areaTo) : null,
-            priceFrom: priceFrom ? Number(priceFrom) : null,
-            priceTo: priceTo ? Number(priceTo) : null,
-        }
-        console.log("Filter data:", filterData)
+        setSearchParams((prev) => {
+            const params = new URLSearchParams(prev)
+            
+            params.delete('propertyTypes')
+            params.delete('rooms')
+            params.delete('areaFrom')
+            params.delete('areaTo')
+            params.delete('priceFrom')
+            params.delete('priceTo')
+            
+            if (selectedTypes.length > 0) {
+                params.set('propertyTypes', selectedTypes.join(','))
+            }
+            if (rooms.length > 0) {
+                params.set('rooms', rooms.join(','))
+            }
+            if (areaFrom.trim()) params.set('areaFrom', areaFrom.trim())
+            if (areaTo.trim()) params.set('areaTo', areaTo.trim())
+            if (priceFrom.trim()) params.set('priceFrom', priceFrom.trim())
+            if (priceTo.trim()) params.set('priceTo', priceTo.trim())
+            
+            return params
+        })
     }
 
     return (

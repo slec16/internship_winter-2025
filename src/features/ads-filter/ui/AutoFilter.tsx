@@ -1,9 +1,9 @@
 import { Box, Input, Stack, Text, Button } from "@chakra-ui/react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useQueryParams } from "@shared/lib/useQueryParams"
 
 const AutoFilter = () => {
-
-    // TODO: валидация
+    const { searchParams, setSearchParams } = useQueryParams()
     
     const [brand, setBrand] = useState("")
     const [model, setModel] = useState("")
@@ -12,16 +12,35 @@ const AutoFilter = () => {
     const [priceFrom, setPriceFrom] = useState("")
     const [priceTo, setPriceTo] = useState("")
 
+    useEffect(() => {
+        setBrand(searchParams.get('brand') || '')
+        setModel(searchParams.get('model') || '')
+        setYearFrom(searchParams.get('yearFrom') || '')
+        setYearTo(searchParams.get('yearTo') || '')
+        setPriceFrom(searchParams.get('priceFrom') || '')
+        setPriceTo(searchParams.get('priceTo') || '')
+    }, [])//eslint-disable-line react-hooks/exhaustive-deps
+
     const handleSubmit = () => {
-        const filterData = {
-            brand,
-            model,
-            yearFrom: yearFrom ? Number(yearFrom) : null,
-            yearTo: yearTo ? Number(yearTo) : null,
-            priceFrom: priceFrom ? Number(priceFrom) : null,
-            priceTo: priceTo ? Number(priceTo) : null,
-        }
-        console.log("Filter data:", filterData)
+        setSearchParams((prev) => {
+            const params = new URLSearchParams(prev)
+
+            params.delete('brand')
+            params.delete('model')
+            params.delete('yearFrom')
+            params.delete('yearTo')
+            params.delete('priceFrom')
+            params.delete('priceTo')
+
+            if (brand.trim()) params.set('brand', brand.trim())
+            if (model.trim()) params.set('model', model.trim())
+            if (yearFrom.trim()) params.set('yearFrom', yearFrom.trim())
+            if (yearTo.trim()) params.set('yearTo', yearTo.trim())
+            if (priceFrom.trim()) params.set('priceFrom', priceFrom.trim())
+            if (priceTo.trim()) params.set('priceTo', priceTo.trim())
+            
+            return params
+        })
     }
     
     return (

@@ -1,9 +1,9 @@
 import { Box, Input, Stack, Text, Button } from "@chakra-ui/react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useQueryParams } from "@shared/lib/useQueryParams"
 
 const ServiceFilter = () => {
-
-    // TODO: валидация
+    const { searchParams, setSearchParams } = useQueryParams()
 
     const experienceOptions = ["Без опыта", "1-3 года", "3-6 лет", "Более 6 лет"]
     const scheduleOptions = ["5/2", "7/0", "По договоренности"]
@@ -13,6 +13,23 @@ const ServiceFilter = () => {
     const [selectedSchedule, setSelectedSchedule] = useState<string[]>([])
     const [priceFrom, setPriceFrom] = useState("")
     const [priceTo, setPriceTo] = useState("")
+
+    useEffect(() => {
+        setServiceType(searchParams.get('serviceType') || '')
+
+        const experienceParam = searchParams.get('experience')
+        if (experienceParam) {
+            setSelectedExperience(experienceParam.split(',').map(e => e.trim()).filter(Boolean))
+        }
+
+        const scheduleParam = searchParams.get('schedule')
+        if (scheduleParam) {
+            setSelectedSchedule(scheduleParam.split(',').map(s => s.trim()).filter(Boolean))
+        }
+
+        setPriceFrom(searchParams.get('priceFrom') || '')
+        setPriceTo(searchParams.get('priceTo') || '')
+    }, [])//eslint-disable-line react-hooks/exhaustive-deps
 
     const toggleExperience = (exp: string) => {
         setSelectedExperience(prev => 
@@ -31,14 +48,27 @@ const ServiceFilter = () => {
     }
 
     const handleSubmit = () => {
-        const filterData = {
-            serviceType,
-            experience: selectedExperience,
-            schedule: selectedSchedule,
-            priceFrom: priceFrom ? Number(priceFrom) : null,
-            priceTo: priceTo ? Number(priceTo) : null,
-        }
-        console.log("Filter data:", filterData)
+        setSearchParams((prev) => {
+            const params = new URLSearchParams(prev)
+            
+            params.delete('serviceType')
+            params.delete('experience')
+            params.delete('schedule')
+            params.delete('priceFrom')
+            params.delete('priceTo')
+            
+            if (serviceType.trim()) params.set('serviceType', serviceType.trim())
+            if (selectedExperience.length > 0) {
+                params.set('experience', selectedExperience.join(','))
+            }
+            if (selectedSchedule.length > 0) {
+                params.set('schedule', selectedSchedule.join(','))
+            }
+            if (priceFrom.trim()) params.set('priceFrom', priceFrom.trim())
+            if (priceTo.trim()) params.set('priceTo', priceTo.trim())
+            
+            return params
+        })
     }
  
     return(
@@ -62,7 +92,7 @@ const ServiceFilter = () => {
                         bg="inputBg" 
                         borderColor="inputBorder"
                         rounded="lg"
-                        placeholder="Выберите модель"
+                        placeholder="Выберите услугу"
                         _placeholder={{ color: "inputPlaceholder" }}
                         _focus={{ borderColor: "inputFocusBorder" }}
                         value={serviceType}
