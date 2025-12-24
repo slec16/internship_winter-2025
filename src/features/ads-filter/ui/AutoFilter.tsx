@@ -48,8 +48,6 @@ const AutoFilter = () => {
             bg="cardBg" 
             rounded="lg" 
             p="5"
-            borderWidth="1px"
-            borderColor="border"
         >
             <Stack gap="4">
                 {/* Марка */}

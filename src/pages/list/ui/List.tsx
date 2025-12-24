@@ -6,6 +6,9 @@ import { Box, Flex } from "@chakra-ui/react"
 import { useQueryParams } from "@shared/lib/useQueryParams"
 import { useMemo } from "react"
 import { filterItemsByType } from "@/features/ads-filter/lib/filterByType"
+import { filterByAutoParams } from "@/features/ads-filter/lib/filterByAutoParams"
+import { filterByPropertyParams } from "@/features/ads-filter/lib/filterByPropertyParams"
+import { filterByServiceParams } from "@/features/ads-filter/lib/filterByServiceParams"
 
 const List = () => {
     const { searchParams } = useQueryParams()
@@ -15,7 +18,13 @@ const List = () => {
         if (!data) return []
 
         const filterType = searchParams.get('filterType')
-        return filterItemsByType(data, filterType)
+        let result = filterItemsByType(data, filterType)
+
+        result = filterByAutoParams(result, searchParams)
+        result = filterByPropertyParams(result, searchParams)
+        result = filterByServiceParams(result, searchParams)
+
+        return result
     }, [data, searchParams])
 
     if (error) return <p>Возникла ошибка</p>
