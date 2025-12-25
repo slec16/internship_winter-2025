@@ -1,5 +1,6 @@
 export { formatValue } from "./lib/format-value"
 export { fieldTranslations } from "./lib/field-translation"
+export { expToString } from "./lib/expToString"
 export { default as ItemAttributes } from "./ui/ItemAttributes"
 export { default as ItemGallery } from "./ui/ItemGallery"
 export { default as ItemHeader } from "./ui/ItemHeader"
