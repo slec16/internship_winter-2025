@@ -1,17 +1,12 @@
 import { useState } from "react"
 import {
     Box,
-    Text,
     Button,
     ButtonGroup,
-    Steps,
     Field,
     Fieldset,
-    For,
     Input,
-    NativeSelect,
     Stack,
-    StepsTrigger,
     type UseStepsReturn
 } from "@chakra-ui/react"
 import type { Item } from "@/shared/types/items"
@@ -28,15 +23,15 @@ const AutoForm = (props: AutoFormProps) => {
 
     const [brand, setBrand] = useState("")
     const [model, setModel] = useState("")
-    const [year, setYear] = useState<undefined | number>()
-    const [mileage, setMileage] = useState<undefined | number>()
+    const [year, setYear] = useState("")
+    const [mileage, setMileage] = useState("")
 
     const nextStep = () => {
         const autoData = {
             brand: brand,
             model: model,
-            year: year,
-            mileage: mileage
+            year: Number(year),
+            mileage: Number(mileage)
         }
         onChange((prev) => {
             return(
@@ -78,13 +73,12 @@ const AutoForm = (props: AutoFormProps) => {
                             onChange={(e) => setModel(e.target.value)}
                         />
                     </Field.Root>
-                    {/* TODO: fix input number */}
                     <Field.Root>
                         <Field.Label>Год</Field.Label>
                         <Input
                             type="number"
                             value={year}
-                            onChange={(e) => setYear(Number(e.target.value))}
+                            onChange={(e) => setYear(e.target.value)}
                         />
                     </Field.Root>
                     <Field.Root>
@@ -92,7 +86,7 @@ const AutoForm = (props: AutoFormProps) => {
                         <Input
                             type="number"
                             value={mileage}
-                            onChange={(e) => setMileage(Number(e.target.value))}
+                            onChange={(e) => setMileage(e.target.value)}
                         />
                     </Field.Root>
                 </Fieldset.Content>

@@ -86,6 +86,7 @@ const CommonForm = (props: commonFormProps) => {
                         />
                     </Field.Root>
 
+                    {/* TODO: default value */}
                     <Field.Root>
                         <Field.Label>Тип объявления</Field.Label>
                         <NativeSelect.Root>
