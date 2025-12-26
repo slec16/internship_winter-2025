@@ -18,7 +18,7 @@ const TypeForm = (props: TypeFormProps) => {
 
     if(itemData?.type === "Авто") return(<AutoForm itemData={itemData} onChange={onChange} stepsStore={stepsStore}/>)
     if(itemData?.type === "Недвижимость") return(<PropertyForm itemData={itemData} onChange={onChange} stepsStore={stepsStore}/>)
-    if(itemData?.type === "Услуги") return(<ServiceForm />)
+    if(itemData?.type === "Услуги") return(<ServiceForm itemData={itemData} onChange={onChange} stepsStore={stepsStore}/>)
 
 }
 
