@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Flex, Text, Button, IconButton, HStack } from '@chakra-ui/react'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import SunnyIcon from '@mui/icons-material/Sunny'
@@ -12,7 +12,8 @@ const Header = () => {
     // const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
     const [createItem, { isLoading: isCreating }] = useCreateItemMutation()
-
+    const navigate = useNavigate()
+    
     const handleCreateRandom = async () => {
         try {
             const randomItem = generateRandomItem()
@@ -56,7 +57,8 @@ const Header = () => {
                     <AccountCircleIcon />
                 </IconButton>
                 <Button
-                    onClick={handleCreateRandom}
+                    // onClick={handleCreateRandom}
+                    onClick={() => navigate("/form")}
                     variant="solid"
                     bg="buttonPrimary"
                     color="buttonPrimaryFg"

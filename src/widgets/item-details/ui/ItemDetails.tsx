@@ -29,6 +29,15 @@ const ItemDetails = (props: ItemDetailsProps) => {
             ? [image]
             : []
 
+    const navigateToForm = () => {
+        navigate(
+            "/form", {
+                state: {
+                    item: item
+                }
+            }
+        )
+    }
 
     return(
         <>
@@ -43,7 +52,7 @@ const ItemDetails = (props: ItemDetailsProps) => {
                 <ItemGallery images={images} name={item.name}/>
             )}
             <ItemAttributes description={description} location={location} displayFields={displayFields} />
-            <Button onClick={() => navigate("/form")} my="5" bg="green" opacity="80%">Редактировать</Button>
+            <Button onClick={navigateToForm} my="5" bg="green" opacity="80%">Редактировать</Button>
         </>
     )
 }
