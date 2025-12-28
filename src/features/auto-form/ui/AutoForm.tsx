@@ -41,11 +41,17 @@ const AutoForm = (props: AutoFormProps) => {
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         // console.log(data)
         // TODO: use here correspondingly type
+        const transformedData = {
+            ...data,
+            year: data.year ? Number(data.year) : undefined,
+            mileage: data.mileage ? Number(data.mileage) : undefined,
+        }
+
         onChange((prev) => {
             return (
                 {
                     ...prev,
-                    ...data
+                    ...transformedData
                 }
             )
         })
