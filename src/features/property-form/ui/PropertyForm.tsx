@@ -4,6 +4,7 @@ import {
     Button,
     ButtonGroup,
     Field,
+    Text,
     Fieldset,
     For,
     Input,
@@ -12,6 +13,7 @@ import {
     type UseStepsReturn
 } from "@chakra-ui/react"
 import type { Item } from "@/shared/types/items"
+import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 
 interface PropertyFormProps {
     itemData: Item | null,
@@ -19,29 +21,41 @@ interface PropertyFormProps {
     onChange: React.Dispatch<React.SetStateAction<{}>>
 }
 
+interface IFormInput {
+    propertyType: string,
+    area: string,
+    rooms: string,
+    price: string,
+}
+
 const PropertyForm = (props: PropertyFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const [propertyType, setPropertyType] = useState("")
-    const [area, setArea] = useState("")
-    const [rooms, setRooms] = useState("")
-    const [price, setPrice] = useState("")
-
-    const propertyTypesArray = ["Квартира", "Дом", "Участок", "Гараж", "Коммерчиская недвижемость", "Недвижемость за рубежом"]
-
-    const nextStep = () => {
-        const propertyData = {
-            propertyType: propertyType,
-            area: Number(area),
-            rooms: Number(rooms),
-            price: Number(price)
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            propertyType: "",
+            area: "",
+            rooms: "",
+            price: "",
         }
+    })
+
+    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+        // console.log(data)
+        // TODO: use here correspondingly type
+        const transformedData = {
+            ...data,
+            area: data.area ? Number(data.area) : undefined,
+            rooms: data.rooms ? Number(data.rooms) : undefined,
+            price: data.price ? Number(data.price) : undefined
+        }
+
         onChange((prev) => {
-            return(
+            return (
                 {
                     ...prev,
-                    ...propertyData
+                    ...transformedData
                 }
             )
         })
@@ -52,69 +66,127 @@ const PropertyForm = (props: PropertyFormProps) => {
         stepsStore.goToPrevStep()
     }
 
+    const propertyTypesArray = ["Квартира", "Дом", "Участок", "Гараж", "Коммерчиская недвижемость", "Недвижемость за рубежом"]
+
+
     return (
         <Box>
-            <Fieldset.Root size="lg" maxW="md" mb="10">
-                <Stack>
-                    <Fieldset.Legend color="text">Информация о недвижимости</Fieldset.Legend>
-                    <Fieldset.HelperText color="secondaryText">
-                        Пожалуйста укажите следующую инфорамцию
-                    </Fieldset.HelperText>
-                </Stack>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Fieldset.Root size="lg" maxW="md" mb="10">
+                    <Stack>
+                        <Fieldset.Legend color="text">Информация о недвижимости</Fieldset.Legend>
+                        <Fieldset.HelperText color="secondaryText">
+                            Пожалуйста укажите следующую инфорамцию
+                        </Fieldset.HelperText>
+                    </Stack>
 
-                <Fieldset.Content>
-                    {/* TODO: default value */}
-                    <Field.Root>
-                        <Field.Label>Тип недвижимости</Field.Label>
-                        <NativeSelect.Root>
-                            <NativeSelect.Field
-                                name="тип"
-                                value={propertyType}
-                                onChange={(e) => setPropertyType(e.target.value)}
-                            >
-                                <For each={propertyTypesArray}>
-                                    {(item) => (
-                                        <option key={item} value={item}>
-                                            {item}
-                                        </option>
-                                    )}
-                                </For>
-                            </NativeSelect.Field>
-                            <NativeSelect.Indicator />
-                        </NativeSelect.Root>
-                    </Field.Root>
-                    <Field.Root>
-                        <Field.Label>Площадь</Field.Label>
-                        <Input
-                            type="number"
-                            value={area}
-                            onChange={(e) => setArea(e.target.value)}
-                        />
-                    </Field.Root>
-                    <Field.Root>
-                        <Field.Label>Количество комант</Field.Label>
-                        <Input
-                            type="number"
-                            value={rooms}
-                            onChange={(e) => setRooms(e.target.value)}
-                        />
-                    </Field.Root>
-                    <Field.Root>
-                        <Field.Label>Цена</Field.Label>
-                        <Input
-                            type="number"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                        />
-                    </Field.Root>
-                </Fieldset.Content>
-            </Fieldset.Root>
+                    <Fieldset.Content>
+                        {/* TODO: default value */}
+                        <Field.Root>
+                            <Field.Label>Тип недвижимости</Field.Label>
+                            <Controller
+                                name='propertyType'
+                                control={control}
+                                rules={{
+                                    required: "Это поле обязательно для заполнения"
+                                }}
+                                render={({ field, fieldState }) => (
+                                    <Box w="full">
+                                        <NativeSelect.Root >
+                                            <NativeSelect.Field
+                                                {...field}
+                                                placeholder="Выберете тип"
+                                                borderColor={fieldState.error ? "red.500" : "gray.200"}
+                                                outlineColor={fieldState.error ? "red.500" : "gray.200"}
+                                            >
+                                                <For each={propertyTypesArray}>
+                                                    {(item) => (
+                                                        <option key={item} value={item}>
+                                                            {item}
+                                                        </option>
+                                                    )}
+                                                </For>
+                                            </NativeSelect.Field>
+                                            <NativeSelect.Indicator />
+                                        </NativeSelect.Root>
+                                        {fieldState.error && (
+                                            <Text color="red">
+                                                {fieldState.error.message}
+                                            </Text>
+                                        )}
+                                    </Box>
+                                )}
+                            />
+                        </Field.Root>
+                        <Field.Root>
+                            <Field.Label>Площадь</Field.Label>
+                            <Controller
+                                name="area"
+                                control={control}
+                                rules={{
+                                    required: "Это поле обязательно для заполнения"
+                                }}
+                                render={({ field, fieldState }) => (
+                                    <Box w="full">
+                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        {fieldState.error && (
+                                            <Text color="red">
+                                                {fieldState.error.message}
+                                            </Text>
+                                        )}
+                                    </Box>
+                                )}
+                            />
+                        </Field.Root>
+                        <Field.Root>
+                            <Field.Label>Количество комант</Field.Label>
+                            <Controller
+                                name="rooms"
+                                control={control}
+                                rules={{
+                                    required: "Это поле обязательно для заполнения"
+                                }}
+                                render={({ field, fieldState }) => (
+                                    <Box w="full">
+                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        {fieldState.error && (
+                                            <Text color="red">
+                                                {fieldState.error.message}
+                                            </Text>
+                                        )}
+                                    </Box>
+                                )}
+                            />
+                        </Field.Root>
+                        <Field.Root>
+                            <Field.Label>Цена</Field.Label>
+                            <Controller
+                                name="price"
+                                control={control}
+                                rules={{
+                                    required: "Это поле обязательно для заполнения"
+                                }}
+                                render={({ field, fieldState }) => (
+                                    <Box w="full">
+                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        {fieldState.error && (
+                                            <Text color="red">
+                                                {fieldState.error.message}
+                                            </Text>
+                                        )}
+                                    </Box>
+                                )}
+                            />
+                        </Field.Root>
+                    </Fieldset.Content>
+                </Fieldset.Root>
 
 
-            <ButtonGroup size="sm" variant="outline">
-                <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
-                <Button bg="buttonPrimary" onClick={nextStep}>Далее</Button>
-            </ButtonGroup>
+                <ButtonGroup size="sm" variant="outline">
+                    <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
+                    <Button type="submit" bg="buttonPrimary">Далее</Button>
+                </ButtonGroup>
+            </form>
         </Box>
     )
 }
