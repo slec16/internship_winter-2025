@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom"
 import type { Item, BaseItem } from "@/shared/types/items"
 import { CommonForm } from "@/features/common-form"
 import TypeForm from "./TypeForm"
+import Preview from "./Preview"
 
 const Form = () => {
 
@@ -46,10 +47,11 @@ const Form = () => {
             title: "Шаг 3",
             // description: "Шаг 3 description",
             // preview
-            // component: <CommonForm item={itemData} onChangeItem={setItemData} />
+            component: <Preview itemData={itemData} stepsStore={stepsStore}/>
         },
     ]
 
+   
 
     return (
         <Box p="5">
