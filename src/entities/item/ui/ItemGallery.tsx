@@ -19,6 +19,7 @@ const ItemGallery = (props: ItemGalleryProps) => {
 
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
+    // TODO: заглушка и размеры при ошибке
     return (
         <>
             <Carousel.Root
