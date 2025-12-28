@@ -1,4 +1,7 @@
-import type { UseStepsReturn }from "@chakra-ui/react"
+import {
+    
+    type UseStepsReturn 
+} from "@chakra-ui/react"
 import { AutoForm } from "@/features/auto-form"
 import { ServiceForm } from "@/features/service-form"
 import { PropertyForm } from "@/features/property-form"

@@ -12,7 +12,7 @@ import {
     HStack,
     type UseStepsReturn
 } from "@chakra-ui/react"
-import { useForm, Controller, type SubmitHandler, useWatch } from "react-hook-form"
+import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 import type { Item } from "@/shared/types/items"
 import { useState, useEffect } from "react"
 import { ItemGallery } from "@/entities/item"
@@ -57,10 +57,6 @@ const CommonForm = (props: commonFormProps) => {
         // TODO: use here baseItem type
         onChange(data)
     }
-
-    useEffect(() => {
-        console.log(imageValue)
-    }, [imageValue])
 
     // const [inputs, setInputs] = useState<string[]>([''])
 
@@ -234,7 +230,7 @@ const CommonForm = (props: commonFormProps) => {
             </Box>
             {imageValue && 
                 <ItemGallery
-                    name="test"
+                    name={nameValue}
                     images={[imageValue]}
                 />
             }
