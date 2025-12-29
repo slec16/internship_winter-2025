@@ -17,7 +17,6 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
 
     if (!itemData) return (<div>Произошла ошибка</div>)
 
-    console.log(itemData)    
     const { name, image, description, location, ...uniqueFields } = itemData
     const displayFields = Object.entries(uniqueFields).filter(
         ([key]) => fieldTranslations[key],
@@ -34,7 +33,6 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
     }
 
     const saveAds = async () => {
-        console.log(itemData)
         if(itemData.id) {
             try {
                 await updateItem({id: itemData.id, ...itemData}).unwrap()

@@ -10,7 +10,6 @@ const List = (props: ListProps) => {
 
     const { data } = props
 
-    console.log(data)
 
     return(
         <Stack direction="column" w="full">

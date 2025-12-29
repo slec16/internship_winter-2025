@@ -17,8 +17,6 @@ const ItemGallery = (props: ItemGalleryProps) => {
 
     const { images, name } = props
 
-    console.log("Image Gallery", images)
-
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
     // TODO: заглушка и размеры при ошибке

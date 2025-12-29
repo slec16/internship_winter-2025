@@ -18,7 +18,6 @@ const Form = () => {
     const location = useLocation()
     const item: Item | undefined = location.state?.item
 
-    console.log(item)
 
     const [itemData, setItemData] = useState<Item | null>(item || null)
 
@@ -26,11 +25,6 @@ const Form = () => {
         defaultStep: 0,
         count: 3,
     })
-
-    useEffect(() => {
-        console.log("!!!!!!!!!",itemData)
-    }, [itemData])
-
 
     const steps = [
         {
@@ -76,7 +70,6 @@ const Form = () => {
                         </Steps.Content>
                     ))}
 
-                    {/* TODO: in component */}
                     <Steps.CompletedContent><CompletedContent item={item}/></Steps.CompletedContent>
 
                 </Steps.RootProvider>

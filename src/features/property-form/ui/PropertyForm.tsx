@@ -1,4 +1,3 @@
-import { useState } from "react"
 import {
     Box,
     Button,
@@ -34,15 +33,14 @@ const PropertyForm = (props: PropertyFormProps) => {
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            propertyType: "",
-            area: "",
-            rooms: "",
-            price: "",
+            propertyType: itemData?.propertyType || "",
+            area: itemData?.area || "",
+            rooms: itemData?.rooms || "",
+            price: itemData?.price || "",
         }
     })
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        // console.log(data)
         // TODO: use here correspondingly type
         const transformedData = {
             ...data,

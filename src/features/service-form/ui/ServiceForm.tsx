@@ -1,4 +1,3 @@
-import { useState } from "react"
 import {
     Box,
     Button,
@@ -34,15 +33,14 @@ const ServiceForm = (props: ServiceFormProps) => {
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            serviceType: "",
-            experience: "",
-            cost: "",
-            workShedule: ""
+            serviceType: itemData?.serviceType || "",
+            experience: itemData?.experience || "",
+            cost: itemData?.cost || "",
+            workShedule: itemData?.workShedule || ""
         }
     })
 
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        // console.log(data)
         // TODO: use here correspondingly type
         const transformedData = {
             ...data,

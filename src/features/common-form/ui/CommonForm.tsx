@@ -100,27 +100,6 @@ const CommonForm = (props: commonFormProps) => {
         return () => subscription.unsubscribe();
     }, [watch]);
 
-    useEffect(() => {
-        console.log(imageValue)
-    }, [imageValue])
-
-
-    // const [inputs, setInputs] = useState<string[]>([''])
-
-    // const addInput = () => {
-    //     setInputs([...inputs, ''])
-    // };
-
-    // const removeInput = (index: number) => {
-    //     setInputs(inputs.filter((_, i) => i !== index))
-    // };
-
-    // const updateInput = (index: number, value: string) => {
-    //     const newInputs = [...inputs]
-    //     newInputs[index] = value
-    //     setInputs(newInputs)
-    // };
-
     return (
         <Stack w="full" direction="row">
             <Box w="1/2">
