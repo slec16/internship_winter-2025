@@ -7,7 +7,7 @@ import {
     Steps,
     useSteps
 } from "@chakra-ui/react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import type { Item, BaseItem } from "@/shared/types/items"
 import { CommonForm } from "@/features/common-form"
 import TypeForm from "./TypeForm"
@@ -75,7 +75,7 @@ const Form = () => {
                     ))}
 
                     {/* TODO: in component */}
-                    <Steps.CompletedContent><Text textStyle="lg" fontWeight="500">Объявление успешно {item ? "изменено" : "создано"}</Text></Steps.CompletedContent>
+                    <Steps.CompletedContent><CompletedContent item={item}/></Steps.CompletedContent>
 
                 </Steps.RootProvider>
             </Box>
@@ -84,3 +84,20 @@ const Form = () => {
 }
 
 export default Form
+
+
+const CompletedContent = ({item}: {item: Item | undefined}) => {
+
+    const navigate = useNavigate()
+
+    return(
+        <Box>
+            <Text textStyle="lg" fontWeight="500">Объявление успешно {item ? "изменено" : "создано"}</Text>
+            <Button
+                onClick={() => navigate("/")}
+            >
+                Перейти на главную
+            </Button>
+        </Box>
+    )
+}
