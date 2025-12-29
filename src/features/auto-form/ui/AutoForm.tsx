@@ -31,10 +31,10 @@ const AutoForm = (props: AutoFormProps) => {
 
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            brand: "",
-            model: "",
-            year: "",
-            mileage: ""
+            brand: itemData?.brand || "",
+            model: itemData?.model || "",
+            year: itemData?.year || "",
+            mileage: itemData?.mileage || "",
         }
     })
 

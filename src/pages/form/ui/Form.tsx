@@ -18,7 +18,9 @@ const Form = () => {
     const location = useLocation()
     const item: Item | undefined = location.state?.item
 
-    const [itemData, setItemData] = useState<Item | null>(null)
+    console.log(item)
+
+    const [itemData, setItemData] = useState<Item | null>(item || null)
 
     const stepsStore = useSteps({
         defaultStep: 0,
