@@ -9,13 +9,13 @@ import {
     Text,
     type UseStepsReturn
 } from "@chakra-ui/react"
-import type { Item } from "@/shared/types/items"
+import type { AutoItem, Item } from "@/shared/types/items"
 import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 
 interface AutoFormProps {
-    itemData: Item | null,
+    itemData: Partial<AutoItem> | null,
     stepsStore: UseStepsReturn
-    onChange: React.Dispatch<React.SetStateAction<{}>>
+    onChange: React.Dispatch<React.SetStateAction<Partial<Item> | null>>
 }
 
 interface IFormInput {

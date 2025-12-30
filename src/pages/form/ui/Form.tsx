@@ -1,14 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
     Box,
     Text,
     Button,
-    ButtonGroup,
     Steps,
     useSteps
 } from "@chakra-ui/react"
 import { useLocation, useNavigate } from "react-router-dom"
-import type { Item, BaseItem } from "@/shared/types/items"
+import type { Item } from "@/shared/types/items"
 import { CommonForm } from "@/features/common-form"
 import TypeForm from "./TypeForm"
 import Preview from "./Preview"
@@ -19,7 +18,7 @@ const Form = () => {
     const item: Item | undefined = location.state?.item
 
 
-    const [itemData, setItemData] = useState<Item | null>(item || null)
+    const [itemData, setItemData] = useState<Partial<Item> | null>(item || null)
 
     const stepsStore = useSteps({
         defaultStep: 0,

@@ -14,23 +14,16 @@ import {
     type UseStepsReturn
 } from "@chakra-ui/react"
 import { useForm, Controller, type SubmitHandler, useWatch, useFieldArray } from "react-hook-form"
-import type { Item } from "@/shared/types/items"
-import { useState, useEffect } from "react"
+import type { Item, BaseItem } from "@/shared/types/items"
+import { useEffect } from "react"
 import { ItemGallery } from "@/entities/item"
 
 interface commonFormProps {
-    itemData: Item | null,
+    itemData: Partial<Item> | null,
     stepsStore: UseStepsReturn
-    onChange: React.Dispatch<React.SetStateAction<Item | null>>
+    onChange: React.Dispatch<React.SetStateAction<Partial<Item> | null>>
 }
 
-interface IFormInput {
-    name: string,
-    description: string,
-    location: string,
-    image: string[],
-    type: string
-}
 
 const STORAGE_KEY = 'form_autosave_data';
 
@@ -38,20 +31,22 @@ const CommonForm = (props: commonFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit, formState: { errors }, watch, reset } = useForm({
+    const { control, handleSubmit, watch, reset } = useForm<BaseItem>({
         defaultValues: {
             name: itemData?.name || "",
             description: itemData?.description || "",
             location: itemData?.location || "",
-            image: itemData?.image || [""],
-            type: itemData?.type || ""
+            image: itemData?.image || [],
+            type: itemData?.type || "Авто"
         },
     })
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "image", // имя массива
+        // @ts-ignore
+        name: "image",
     });
+
 
     // const [nameValue, imageValue] = watch(["name", "image"]);
     const [nameValue, imageValue] = useWatch({
@@ -59,7 +54,7 @@ const CommonForm = (props: commonFormProps) => {
         name: ["name", "image"]
     });
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const onSubmit: SubmitHandler<BaseItem> = (data) => {
         // TODO: use here baseItem type
         onChange((prev) => {
             return (
@@ -99,6 +94,10 @@ const CommonForm = (props: commonFormProps) => {
 
         return () => subscription.unsubscribe();
     }, [watch]);
+
+    useEffect(() => {
+        return () => localStorage.removeItem(STORAGE_KEY)
+    }, [])
 
     return (
         <Stack w="full" direction="row">
@@ -175,36 +174,35 @@ const CommonForm = (props: commonFormProps) => {
                             </Field.Root>
                             <Field.Root>
                                 <Field.Label>Фото</Field.Label>
-                                {/* <Controller
-                                    name="image"
-                                    control={control}
-                                    render={({ field }) => <Input {...field} />}
-                                /> */}
-                                <VStack spaceY="4">
+                                <VStack spaceY="4" w="full">
                                     {fields.map((field, index) => (
-                                        <HStack key={field.id} width="100%">
+                                        <HStack key={field.id} w="full">
                                             <Controller
                                                 name={`image.${index}`}
                                                 control={control}
                                                 render={({ field }) => (
                                                     <Input
+                                                        w="full"
                                                         {...field}
-                                                        placeholder={`Тег ${index + 1}`}
+                                                        placeholder={`Изображение ${index + 1}`}
                                                     />
                                                 )}
                                             />
                                             <Button
+                                                bg="buttonPrimary"
                                                 aria-label="Удалить"
                                                 onClick={() => remove(index)}
                                                 disabled={fields.length === 1}
-                                            />
+                                            >Удалить</Button>
                                         </HStack>
                                     ))}
 
                                     <Button
+                                        alignSelf="start"
+                                        bg="buttonPrimary"
                                         onClick={() => append('')} // Добавляем пустую строку
                                     >
-                                        Добавить тег
+                                        Добавить изображение
                                     </Button>
                                 </VStack>
                             </Field.Root>
@@ -255,7 +253,7 @@ const CommonForm = (props: commonFormProps) => {
                     </ButtonGroup>
                 </form>
             </Box>
-            {imageValue &&
+            {(imageValue != undefined && imageValue.length > 0) &&
                 <ItemGallery
                     name={nameValue}
                     images={imageValue}
