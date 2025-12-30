@@ -180,12 +180,22 @@ const CommonForm = (props: commonFormProps) => {
                                             <Controller
                                                 name={`image.${index}`}
                                                 control={control}
-                                                render={({ field }) => (
-                                                    <Input
-                                                        w="full"
-                                                        {...field}
-                                                        placeholder={`Изображение ${index + 1}`}
-                                                    />
+                                                rules={{
+                                                    required: "Поле не может быть пустым"
+                                                }}
+                                                render={({ field, fieldState }) => (
+                                                    <Box w="full">
+                                                        <Input
+                                                            w="full"
+                                                            {...field}
+                                                            placeholder={`Изображение ${index + 1}`}
+                                                        />
+                                                        {fieldState.error && (
+                                                            <Text color="red">
+                                                                {fieldState.error.message}
+                                                            </Text>
+                                                        )}
+                                                    </Box>
                                                 )}
                                             />
                                             <Button

@@ -5,8 +5,10 @@ import {
     Carousel,
     IconButton,
     Dialog,
+    Text,
+    Center,
 } from "@chakra-ui/react"
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
+import { LuChevronLeft, LuChevronRight, LuImageOff } from "react-icons/lu"
 
 interface ItemGalleryProps {
     images: string[],
@@ -19,7 +21,6 @@ const ItemGallery = (props: ItemGalleryProps) => {
 
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
-    // TODO: заглушка и размеры при ошибке
     return (
         <>
             <Carousel.Root
@@ -30,14 +31,12 @@ const ItemGallery = (props: ItemGalleryProps) => {
             >
                 <Carousel.Control
                     justifyContent="center"
-                    // gap="4"
                     width="full"
                     alignItems="stretch"
                     minH="400px"
                 >
                     <Carousel.PrevTrigger asChild>
                         <Box>
-                            {/* TODO: last/first disabled */}
                             <IconButton
                                 size="xs"
                                 height="100%"
@@ -56,48 +55,75 @@ const ItemGallery = (props: ItemGalleryProps) => {
 
                     <Carousel.ItemGroup width="full" alignItems="center">
                         {images.map((url, index) => (
-                            <Carousel.Item key={url} index={index}>
-                                <Box
-                                    w="100%"
-                                    display="flex"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    position="relative"
-                                    minH="400px"
-                                    bgSize="cover"
-                                    style={{
-                                        backgroundImage: `url(${url})`
-                                    }}
-                                >
-                                    <Box
-                                        position="absolute"
-                                        top="0"
-                                        left="0"
-                                        width="100%"
-                                        height="100%"
-                                        backdropFilter="blur(30px)"
-                                        bg="blackAlpha.100"
-                                    />
-
-                                    <Box
-                                        position="relative"
-                                        zIndex="1"
-                                        maxH="400px"
-                                        maxW="100%"
-                                        cursor="pointer"
-                                        onClick={() => setPreviewUrl(url)}
+                            <Carousel.Item key={`${url}-${index}`} index={index}>
+                                {url.length === 0 ? (
+                                    <Center
+                                        w="100%"
+                                        minH="400px"
+                                        bg="gray.50"
+                                        borderWidth="1px"
+                                        borderColor="gray.200"
+                                        flexDirection="column"
+                                        gap={3}
+                                        p={6}
                                     >
-                                        <Image
-                                            src={url}
-                                            alt={name}
-                                            objectFit="contain"
-                                            width="auto"
-                                            height="auto"
+                                        <Box
+                                            fontSize="4xl"
+                                            color="gray.400"
+                                        >
+                                            <LuImageOff />
+                                        </Box>
+                                        <Text
+                                            fontSize="sm"
+                                            color="gray.500"
+                                            fontWeight="medium"
+                                        >
+                                            Нет фото
+                                        </Text>
+                                    </Center>
+                                ) : (
+                                    <Box
+                                        w="100%"
+                                        display="flex"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        position="relative"
+                                        minH="400px"
+                                        bgSize="cover"
+                                        style={{
+                                            backgroundImage: `url(${url})`
+                                        }}
+                                    >
+                                        <Box
+                                            position="absolute"
+                                            top="0"
+                                            left="0"
+                                            width="100%"
+                                            height="100%"
+                                            backdropFilter="blur(30px)"
+                                            bg="blackAlpha.100"
+                                        />
+
+                                        <Box
+                                            position="relative"
+                                            zIndex="1"
                                             maxH="400px"
                                             maxW="100%"
-                                        />
+                                            cursor="pointer"
+                                            onClick={() => setPreviewUrl(url)}
+                                        >
+                                            <Image
+                                                src={url}
+                                                alt={name}
+                                                objectFit="contain"
+                                                width="auto"
+                                                height="auto"
+                                                maxH="400px"
+                                                maxW="100%"
+                                            />
+                                        </Box>
                                     </Box>
-                                </Box>
+                                )}
                             </Carousel.Item>
                         ))}
                     </Carousel.ItemGroup>
@@ -131,7 +157,7 @@ const ItemGallery = (props: ItemGalleryProps) => {
                 >
                     {images.map((url, index) => (
                         <Carousel.Indicator
-                            key={url}
+                            key={`thumb-${url}-${index}`}
                             index={index}
                             unstyled
                             flexShrink={0}
@@ -140,13 +166,40 @@ const ItemGallery = (props: ItemGalleryProps) => {
                                 outlineOffset: "2px",
                             }}
                         >
-                            <Image
-                                w="20"
-                                aspectRatio="16/9"
-                                src={url}
-                                alt={name}
-                                objectFit="cover"
-                            />
+                            {url.length === 0 ? (
+                                <Center
+                                    w="20"
+                                    aspectRatio="16/9"
+                                    bg="gray.100"
+                                    borderWidth="1px"
+                                    borderColor="gray.300"
+                                    borderRadius="sm"
+                                    flexDirection="column"
+                                    gap={1}
+                                >
+                                    <Box
+                                        fontSize="lg"
+                                        color="gray.400"
+                                    >
+                                        <LuImageOff />
+                                    </Box>
+                                    <Text
+                                        fontSize="xs"
+                                        color="gray.500"
+                                        px={1}
+                                    >
+                                        Нет фото
+                                    </Text>
+                                </Center>
+                            ) : (
+                                <Image
+                                    w="20"
+                                    aspectRatio="16/9"
+                                    src={url}
+                                    alt={name}
+                                    objectFit="cover"
+                                />
+                            )}
                         </Carousel.Indicator>
                     ))}
                 </Carousel.IndicatorGroup>
