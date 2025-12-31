@@ -34,7 +34,7 @@ export interface ServiceItem extends BaseItem {
     serviceType: string
     experience: number
     cost: number
-    workSchedule?: string
+    workShedule?: string
 }
 
 // Объединенный тип для всех объявлений
