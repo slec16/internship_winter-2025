@@ -1,12 +1,12 @@
 import {
     Stack,
-    type UseStepsReturn 
+    type UseStepsReturn
 } from "@chakra-ui/react"
 import { AutoForm } from "@/features/auto-form"
 import { ServiceForm } from "@/features/service-form"
 import { PropertyForm } from "@/features/property-form"
 import { ItemGallery } from "@/entities/item"
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
 import type { Item } from "@/shared/types/items"
 
 interface TypeFormProps {
@@ -17,8 +17,6 @@ interface TypeFormProps {
 
 const TypeForm = (props: TypeFormProps) => {
     const { itemData, stepsStore, onChange } = props
-    
-    console.log(itemData)
 
     // Если нет данных, показываем заглушку
     if (!itemData) {
@@ -29,24 +27,22 @@ const TypeForm = (props: TypeFormProps) => {
     const renderForm = () => {
         switch (itemData.type) {
             case "Авто":
-                return <AutoForm itemData={itemData} onChange={onChange} stepsStore={stepsStore}/>
+                return <AutoForm itemData={itemData} onChange={onChange} stepsStore={stepsStore} />
             case "Недвижимость":
-                return <PropertyForm itemData={itemData} onChange={onChange} stepsStore={stepsStore}/>
+                return <PropertyForm itemData={itemData} onChange={onChange} stepsStore={stepsStore} />
             case "Услуги":
-                return <ServiceForm itemData={itemData} onChange={onChange} stepsStore={stepsStore}/>
+                return <ServiceForm itemData={itemData} onChange={onChange} stepsStore={stepsStore} />
             default:
                 return null
         }
     }
 
     return (
-         <Stack w="full" direction="row">
-            {/* Форма слева */}
+        <Stack w="full" direction="row">
             <Box w="1/2">
                 {renderForm()}
             </Box>
-            
-            {/* Галерея справа, если есть изображение */}
+
             {itemData?.image && (
                 <ItemGallery
                     name={itemData.name || ""}

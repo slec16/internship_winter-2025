@@ -11,48 +11,35 @@ import {
     Stack,
     type UseStepsReturn
 } from "@chakra-ui/react"
-import type { Item } from "@/shared/types/items"
+import type { Item, ServiceItem } from "@/shared/types/items"
 import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 
 interface ServiceFormProps {
-    itemData: Item | null,
+    itemData: Partial<ServiceItem> | null,
     stepsStore: UseStepsReturn
-    onChange: React.Dispatch<React.SetStateAction<{}>>
-}
-
-interface IFormInput {
-    serviceType: string,
-    experience: string,
-    cost: string,
-    workShedule: string
+    onChange: React.Dispatch<React.SetStateAction<Partial<Item> | null>>
 }
 
 const ServiceForm = (props: ServiceFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const { control, handleSubmit } = useForm<ServiceItem>({
         defaultValues: {
             serviceType: itemData?.serviceType || "",
-            experience: itemData?.experience || "",
-            cost: itemData?.cost || "",
-            workShedule: itemData?.workShedule || ""
+            experience: itemData?.experience,
+            cost: itemData?.cost,
+            workShedule: itemData?.workShedule
         }
     })
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        // TODO: use here correspondingly type
-        const transformedData = {
-            ...data,
-            experience: data.experience ? Number(data.experience) : undefined,
-            cost: data.cost ? Number(data.cost) : undefined,
-        }
+    const onSubmit: SubmitHandler<ServiceItem> = (data) => {
 
         onChange((prev) => {
             return (
                 {
                     ...prev,
-                    ...transformedData
+                    ...data
                 }
             )
         })

@@ -27,23 +27,18 @@ const AutoForm = (props: AutoFormProps) => {
         defaultValues: {
             brand: itemData?.brand || "",
             model: itemData?.model || "",
-            year: itemData?.year ,
-            mileage: itemData?.mileage ,
+            year: itemData?.year,
+            mileage: itemData?.mileage,
         }
     })
 
     const onSubmit: SubmitHandler<AutoItem> = (data) => {
-        const transformedData = {
-            ...data,
-            year: data.year ? Number(data.year) : undefined,
-            mileage: data.mileage ? Number(data.mileage) : undefined,
-        }
-
+      
         onChange((prev) => {
             return (
                 {
                     ...prev,
-                    ...transformedData
+                    ...data
                 }
             )
         })

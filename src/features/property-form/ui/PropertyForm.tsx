@@ -11,49 +11,36 @@ import {
     Stack,
     type UseStepsReturn
 } from "@chakra-ui/react"
-import type { Item } from "@/shared/types/items"
+import type { Item, PropertyItem } from "@/shared/types/items"
 import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 
 interface PropertyFormProps {
-    itemData: Item | null,
+    itemData: Partial<PropertyItem> | null,
     stepsStore: UseStepsReturn
-    onChange: React.Dispatch<React.SetStateAction<{}>>
-}
-
-interface IFormInput {
-    propertyType: string,
-    area: string,
-    rooms: string,
-    price: string,
+    onChange: React.Dispatch<React.SetStateAction<Partial<Item> | null>>
 }
 
 const PropertyForm = (props: PropertyFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const { control, handleSubmit } = useForm<PropertyItem>({
         defaultValues: {
             propertyType: itemData?.propertyType || "",
-            area: itemData?.area || "",
-            rooms: itemData?.rooms || "",
-            price: itemData?.price || "",
+            area: itemData?.area,
+            rooms: itemData?.rooms,
+            price: itemData?.price,
         }
     })
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const onSubmit: SubmitHandler<PropertyItem> = (data) => {
         // TODO: use here correspondingly type
-        const transformedData = {
-            ...data,
-            area: data.area ? Number(data.area) : undefined,
-            rooms: data.rooms ? Number(data.rooms) : undefined,
-            price: data.price ? Number(data.price) : undefined
-        }
 
         onChange((prev) => {
             return (
                 {
                     ...prev,
-                    ...transformedData
+                    ...data
                 }
             )
         })
