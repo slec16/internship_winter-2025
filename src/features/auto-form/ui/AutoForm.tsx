@@ -9,7 +9,7 @@ import {
     Text,
     type UseStepsReturn
 } from "@chakra-ui/react"
-import type { AutoItem, Item } from "@/shared/types/items"
+import type { Item, AutoItem } from "@/shared/types/items"
 import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 
 interface AutoFormProps {
@@ -18,29 +18,21 @@ interface AutoFormProps {
     onChange: React.Dispatch<React.SetStateAction<Partial<Item> | null>>
 }
 
-interface IFormInput {
-    brand: string,
-    model: string,
-    year: string,
-    mileage: string
-}
 
 const AutoForm = (props: AutoFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const { control, handleSubmit } = useForm<AutoItem>({
         defaultValues: {
             brand: itemData?.brand || "",
             model: itemData?.model || "",
-            year: itemData?.year || "",
-            mileage: itemData?.mileage || "",
+            year: itemData?.year ,
+            mileage: itemData?.mileage ,
         }
     })
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        // console.log(data)
-        // TODO: use here correspondingly type
+    const onSubmit: SubmitHandler<AutoItem> = (data) => {
         const transformedData = {
             ...data,
             year: data.year ? Number(data.year) : undefined,
