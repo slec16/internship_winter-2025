@@ -221,7 +221,6 @@ const CommonForm = (props: commonFormProps) => {
                                                 bg="buttonPrimary"
                                                 aria-label="Удалить"
                                                 onClick={() => remove(index)}
-                                                disabled={fields.length === 1}
                                             >Удалить</Button>
                                         </HStack>
                                     ))}
