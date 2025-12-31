@@ -14,7 +14,7 @@ import {
     type UseStepsReturn
 } from "@chakra-ui/react"
 import { useForm, Controller, type SubmitHandler, useWatch, useFieldArray } from "react-hook-form"
-import type { Item, BaseItem } from "@/shared/types/items"
+import type { Item, BaseItem, ItemType } from "@/shared/types/items"
 import { useEffect } from "react"
 import { ItemGallery } from "@/entities/item"
 
@@ -25,42 +25,62 @@ interface commonFormProps {
 }
 
 
-const STORAGE_KEY = 'form_autosave_data';
+interface IFormInput {
+    name: string
+    description: string
+    location: string
+    image: { id: string, url: string }[]
+    type: ItemType
+}
+
+const STORAGE_KEY = 'form_autosave_data'
 
 const CommonForm = (props: commonFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit, watch, reset } = useForm<BaseItem>({
+    const { control, handleSubmit, watch, reset } = useForm<IFormInput>({
         defaultValues: {
             name: itemData?.name || "",
             description: itemData?.description || "",
             location: itemData?.location || "",
-            image: itemData?.image || [],
+            image: Array.isArray(itemData?.image)
+                ? itemData.image.map((url, index) => ({
+                    id: `image_${index}_${Date.now()}`,
+                    url: url || ""
+                }))
+                : [],
             type: itemData?.type || "Авто"
         },
-    })
+    });
 
     const { fields, append, remove } = useFieldArray({
         control,
-        // @ts-ignore
         name: "image",
-    });
+    })
 
-
-    // const [nameValue, imageValue] = watch(["name", "image"]);
     const [nameValue, imageValue] = useWatch({
         control,
         name: ["name", "image"]
-    });
+    })
 
-    const onSubmit: SubmitHandler<BaseItem> = (data) => {
-        // TODO: use here baseItem type
+
+
+    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+
+        const baseItemData: BaseItem = {
+            name: data.name,
+            description: data.description,
+            location: data.location,
+            image: data.image.map(item => item.url).filter(url => url.trim() !== ""),
+            type: data.type
+        };
+
         onChange((prev) => {
             return (
                 {
                     ...prev,
-                    ...data
+                    ...baseItemData
                 }
             )
         })
@@ -70,31 +90,29 @@ const CommonForm = (props: commonFormProps) => {
 
 
     useEffect(() => {
-        const savedData = localStorage.getItem(STORAGE_KEY);
+        const savedData = localStorage.getItem(STORAGE_KEY)
         if (savedData) {
             try {
-                const parsedData = JSON.parse(savedData);
-
+                const parsedData = JSON.parse(savedData)
                 reset(parsedData);
 
-                if (onChange) {
-                    onChange(parsedData);
-                }
+                
             } catch (error) {
-                console.error('Ошибка при восстановлении формы:', error);
+                console.error('Ошибка при восстановлении формы:', error)
             }
         }
-    }, [reset, onChange]);
+    }, [reset])
 
 
     useEffect(() => {
         const subscription = watch((data) => {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
         });
 
-        return () => subscription.unsubscribe();
-    }, [watch]);
+        return () => subscription.unsubscribe()
+    }, [watch])
 
+    // удаление при анмауенте
     useEffect(() => {
         return () => localStorage.removeItem(STORAGE_KEY)
     }, [])
@@ -178,7 +196,7 @@ const CommonForm = (props: commonFormProps) => {
                                     {fields.map((field, index) => (
                                         <HStack key={field.id} w="full">
                                             <Controller
-                                                name={`image.${index}`}
+                                                name={`image.${index}.url`}
                                                 control={control}
                                                 rules={{
                                                     required: "Поле не может быть пустым"
@@ -188,6 +206,7 @@ const CommonForm = (props: commonFormProps) => {
                                                         <Input
                                                             w="full"
                                                             {...field}
+                                                            value={field.value || ''}
                                                             placeholder={`Изображение ${index + 1}`}
                                                         />
                                                         {fieldState.error && (
@@ -210,7 +229,7 @@ const CommonForm = (props: commonFormProps) => {
                                     <Button
                                         alignSelf="start"
                                         bg="buttonPrimary"
-                                        onClick={() => append('')} // Добавляем пустую строку
+                                        onClick={() => append({ id: `image_${fields.length}_${Date.now()}`, url: '' })}
                                     >
                                         Добавить изображение
                                     </Button>
@@ -266,7 +285,7 @@ const CommonForm = (props: commonFormProps) => {
             {(imageValue != undefined && imageValue.length > 0) &&
                 <ItemGallery
                     name={nameValue}
-                    images={imageValue}
+                    images={imageValue.map(item => item.url)}
                 />
             }
         </Stack>
