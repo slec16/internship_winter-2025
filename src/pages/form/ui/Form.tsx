@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
     Box,
     Text,
@@ -25,24 +25,22 @@ const Form = () => {
         count: 3,
     })
 
+    useEffect(() => {
+        console.log(itemData)
+    }, [itemData])
+
     const steps = [
         {
             title: "Шаг 1",
-            // description: "Шаг 1 description",
-            // commonForm.tsx
             component: <CommonForm itemData={itemData} onChange={setItemData} stepsStore={stepsStore} />
         },
         {
             title: "Шаг 2",
-            // description: itemType && typeToFormComponent[itemType],
-            // typeForm
             component: <TypeForm itemData={itemData} onChange={setItemData} stepsStore={stepsStore}/>
         },
         {
             title: "Шаг 3",
-            // description: "Шаг 3 description",
-            // preview
-            component: <Preview itemData={itemData} stepsStore={stepsStore}/>
+            component: <Preview itemData={itemData as Item} stepsStore={stepsStore}/>
         },
     ]
 

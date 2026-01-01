@@ -15,6 +15,8 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
     const [createItem, { isLoading: isCreating }] = useCreateItemMutation()
     const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation()
 
+    console.log(itemData)
+
     if (!itemData) return (<div>Произошла ошибка</div>)
 
     const { name, image, description, location, ...uniqueFields } = itemData
@@ -33,7 +35,7 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
     }
 
     const saveAds = async () => {
-        if(itemData.id) {
+        if(itemData.id !== undefined && itemData.id !== null) {
             try {
                 await updateItem({id: itemData.id, ...itemData}).unwrap()
                 stepsStore.goToNextStep()
