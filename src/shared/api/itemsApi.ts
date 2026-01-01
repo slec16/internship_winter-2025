@@ -20,7 +20,7 @@ export const itemsApi = createApi({
         }),
         getItemById: builder.query<Item, number>({
             query: (id) => `/items/${id}`,
-            providesTags: (_result, _error, id) => [{type: 'Item', id}]
+            providesTags: (_result, _error, id) => [{ type: 'Item', id }]
         }),
         createItem: builder.mutation<Item, CreateItem>({
             query: (body) => ({
@@ -31,19 +31,20 @@ export const itemsApi = createApi({
             invalidatesTags: ['Item']
         }),
         updateItem: builder.mutation<Item, UpdateItem>({
-            query: ({id, ...body}) => ({
+            query: ({ id, ...body }) => ({
                 url: `items/${id}`,
                 method: 'PUT',
                 body
             }),
-            invalidatesTags: (_result, _error, { id }) => [{type: 'Item', id}],
+            // invalidatesTags: (_result, _error, { id }) => [{ type: 'Item', id }],
+            invalidatesTags: () => [{ type: 'Item' }],
         }),
         deleteItem: builder.mutation<void, number>({
             query: (id) => ({
                 url: `/items/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: (_result, _error, id) => [{type: 'Item', id}],
+            invalidatesTags: (_result, _error, id) => [{ type: 'Item', id }],
         })
     })
 })
