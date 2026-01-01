@@ -101,10 +101,6 @@ const AutoForm = (props: AutoFormProps) => {
                                     </Box>
                                 )}
                             />
-                            {/* <Input
-                                value={model}
-                                onChange={(e) => setModel(e.target.value)}
-                            /> */}
                         </Field.Root>
                         <Field.Root>
                             <Field.Label>Год</Field.Label>
@@ -116,7 +112,7 @@ const AutoForm = (props: AutoFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -125,11 +121,6 @@ const AutoForm = (props: AutoFormProps) => {
                                     </Box>
                                 )}
                             />
-                            {/* <Input
-                                type="number"
-                                value={year}
-                                onChange={(e) => setYear(e.target.value)}
-                            /> */}
                         </Field.Root>
                         <Field.Root>
                             <Field.Label>Пробег</Field.Label>
@@ -141,7 +132,7 @@ const AutoForm = (props: AutoFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -150,11 +141,6 @@ const AutoForm = (props: AutoFormProps) => {
                                     </Box>
                                 )}
                             />
-                            {/* <Input
-                                type="number"
-                                value={mileage}
-                                onChange={(e) => setMileage(e.target.value)}
-                            /> */}
                         </Field.Root>
                     </Fieldset.Content>
                 </Fieldset.Root>

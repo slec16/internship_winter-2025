@@ -92,7 +92,7 @@ const ServiceForm = (props: ServiceFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -112,7 +112,7 @@ const ServiceForm = (props: ServiceFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
