@@ -39,6 +39,7 @@ const CommonForm = (props: commonFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
+    // TODO: save form after reload
     const { control, handleSubmit, watch, reset } = useForm<IFormInput>({
         defaultValues: {
             name: itemData?.name || "",
@@ -89,33 +90,33 @@ const CommonForm = (props: commonFormProps) => {
     }
 
 
-    useEffect(() => {
-        const savedData = localStorage.getItem(STORAGE_KEY)
-        if (savedData) {
-            try {
-                const parsedData = JSON.parse(savedData)
-                reset(parsedData);
+    // useEffect(() => {
+    //     const savedData = localStorage.getItem(STORAGE_KEY)
+    //     if (savedData) {
+    //         try {
+    //             const parsedData = JSON.parse(savedData)
+    //             reset(parsedData);
 
                 
-            } catch (error) {
-                console.error('Ошибка при восстановлении формы:', error)
-            }
-        }
-    }, [reset])
+    //         } catch (error) {
+    //             console.error('Ошибка при восстановлении формы:', error)
+    //         }
+    //     }
+    // }, [reset])
 
 
-    useEffect(() => {
-        const subscription = watch((data) => {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-        });
+    // useEffect(() => {
+    //     const subscription = watch((data) => {
+    //         localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+    //     });
 
-        return () => subscription.unsubscribe()
-    }, [watch])
+    //     return () => subscription.unsubscribe()
+    // }, [watch])
 
-    // удаление при анмауенте
-    useEffect(() => {
-        return () => localStorage.removeItem(STORAGE_KEY)
-    }, [])
+    // // удаление при анмауенте
+    // useEffect(() => {
+    //     return () => localStorage.removeItem(STORAGE_KEY)
+    // }, [])
 
     return (
         <Stack w="full" direction="row">

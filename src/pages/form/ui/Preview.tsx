@@ -15,8 +15,6 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
     const [createItem, { isLoading: isCreating }] = useCreateItemMutation()
     const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation()
 
-    console.log(itemData)
-
     if (!itemData) return (<div>Произошла ошибка</div>)
 
     const { name, image, description, location, ...uniqueFields } = itemData

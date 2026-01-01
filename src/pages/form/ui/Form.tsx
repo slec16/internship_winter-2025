@@ -25,10 +25,6 @@ const Form = () => {
         count: 3,
     })
 
-    useEffect(() => {
-        console.log(itemData)
-    }, [itemData])
-
     const steps = [
         {
             title: "Шаг 1",
