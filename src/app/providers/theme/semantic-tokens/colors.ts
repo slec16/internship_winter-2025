@@ -106,5 +106,8 @@ export const semanticColors = {
     inputPlaceholder: {
         value: { base: "{colors.gray.400}", _dark: "{colors.gray.500}" },
     },
+
+    //Steps
+
 }
 

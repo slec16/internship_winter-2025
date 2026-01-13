@@ -72,7 +72,7 @@ const AutoForm = (props: AutoFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -92,7 +92,7 @@ const AutoForm = (props: AutoFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -112,7 +112,7 @@ const AutoForm = (props: AutoFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -132,7 +132,7 @@ const AutoForm = (props: AutoFormProps) => {
                                 }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "gray.200"} outlineColor={fieldState.error ? "red.500" : "gray.200"} />
+                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                         {fieldState.error && (
                                             <Text color="red">
                                                 {fieldState.error.message}
@@ -147,8 +147,8 @@ const AutoForm = (props: AutoFormProps) => {
 
 
                 <ButtonGroup size="sm" variant="outline">
-                    <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
-                    <Button type='submit' bg="buttonPrimary">Далее</Button>
+                    <Button onClick={prevStep}>Назад</Button>
+                    <Button type='submit'>Далее</Button>
                 </ButtonGroup>
             </form>
         </Box>

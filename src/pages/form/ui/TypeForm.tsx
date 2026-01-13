@@ -43,7 +43,7 @@ const TypeForm = (props: TypeFormProps) => {
                 {renderForm()}
             </Box>
 
-            {itemData?.image && (
+            {(Array.isArray(itemData?.image) && itemData?.image?.length > 0) && (
                 <ItemGallery
                     name={itemData.name || ""}
                     images={itemData.image}

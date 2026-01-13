@@ -67,8 +67,8 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
             }
             <ItemAttributes description={description} location={location} displayFields={displayFields} />
             <ButtonGroup size="sm" variant="outline" mt="4">
-                <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
-                <Button bg="green" onClick={saveAds}>Сохранить объявлеине</Button>
+                <Button onClick={prevStep}>Назад</Button>
+                <Button onClick={saveAds}>Сохранить объявлеине</Button>
             </ButtonGroup>
         </Box >
     )
