@@ -64,7 +64,6 @@ const PropertyForm = (props: PropertyFormProps) => {
                     </Stack>
 
                     <Fieldset.Content>
-                        {/* TODO: default value */}
                         <Field.Root>
                             <Field.Label>Тип недвижимости</Field.Label>
                             <Controller

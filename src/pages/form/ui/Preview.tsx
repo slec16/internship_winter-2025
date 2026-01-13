@@ -33,11 +33,14 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
     }
 
     const saveAds = async () => {
+
         if(itemData.id !== undefined && itemData.id !== null) {
             try {
                 await updateItem({id: itemData.id, ...itemData}).unwrap()
                 stepsStore.goToNextStep()
+                
             } catch (err) {
+                // TODO: отображать ошибку
                 console.error(err)
             }
         } else{
@@ -45,6 +48,7 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
                 await createItem(itemData).unwrap()
                 stepsStore.goToNextStep()
             } catch (err) {
+                // TODO: отображать ошибку
                 console.error(err)
             }
         }
