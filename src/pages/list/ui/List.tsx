@@ -9,6 +9,7 @@ import { filterItemsByType } from "@/features/ads-filter/lib/filterByType"
 import { filterByAutoParams } from "@/features/ads-filter/lib/filterByAutoParams"
 import { filterByPropertyParams } from "@/features/ads-filter/lib/filterByPropertyParams"
 import { filterByServiceParams } from "@/features/ads-filter/lib/filterByServiceParams"
+import { filterBySearchParams } from "@/features/ads-search/lib/filterBySearchParams"
 
 const List = () => {
     const { searchParams } = useQueryParams()
@@ -23,6 +24,7 @@ const List = () => {
         result = filterByAutoParams(result, searchParams)
         result = filterByPropertyParams(result, searchParams)
         result = filterByServiceParams(result, searchParams)
+        result = filterBySearchParams(result, searchParams)
 
         return result
     }, [data, searchParams])

@@ -1,21 +1,32 @@
 import { Input, InputGroup, CloseButton } from "@chakra-ui/react"
-// import SearchIcon from '@mui/icons-material/Search'
+import { useQueryParams } from "@/shared/lib/useQueryParams"
+import { useDebounce } from "@/shared/lib/useDebounce"
 import { LuSearch } from "react-icons/lu"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const Search = () => {
-
-    const [value, setValue] = useState("")
+    const { searchQuery, setSearchQuery } = useQueryParams()
+    const [localValue, setLocalValue] = useState(searchQuery || "")
     const inputRef = useRef<HTMLInputElement | null>(null)
+    const debouncedValue = useDebounce(localValue)
 
-    const endElement = value ? (
+    useEffect(() => {
+        setLocalValue(searchQuery)
+    }, [searchQuery])
+    
+    useEffect(() => {
+        setSearchQuery(debouncedValue)
+    }, [debouncedValue, setSearchQuery])
+
+    const clearHandler = () => {
+        setLocalValue("")
+        inputRef.current?.focus()
+    }
+
+    const endElement = localValue ? (
         <CloseButton
             size="xs"
-
-            onClick={() => {
-                setValue("")
-                inputRef.current?.focus()
-            }}
+            onClick={clearHandler}
             me="-2"
         />
     ) : undefined
@@ -30,8 +41,8 @@ const Search = () => {
                 <Input
                     ref={inputRef}
                     placeholder="Поиск..."
-                    value={value}
-                    onChange={(e) => { setValue(e.currentTarget.value) }}
+                    value={localValue}
+                    onChange={(e) => { setLocalValue(e.currentTarget.value) }}
                 />
             </InputGroup>
         </>
