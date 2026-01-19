@@ -12,7 +12,9 @@ import {
     type UseStepsReturn
 } from "@chakra-ui/react"
 import type { Item, PropertyItem } from "@/shared/types/items"
-import { useForm, Controller, type SubmitHandler } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { propertyFormSchema, type PropertyFormInput, type PropertyFormData } from "@/shared/lib/schemas"
 
 interface PropertyFormProps {
     itemData: Partial<PropertyItem> | null,
@@ -24,16 +26,17 @@ const PropertyForm = (props: PropertyFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit } = useForm<PropertyItem>({
+    const { control, handleSubmit } = useForm<PropertyFormInput, unknown, PropertyFormData>({
+        resolver: zodResolver(propertyFormSchema),
         defaultValues: {
             propertyType: itemData?.propertyType || "",
-            area: itemData?.area,
-            rooms: itemData?.rooms,
-            price: itemData?.price,
+            area: itemData?.area ?? "",
+            rooms: itemData?.rooms ?? "",
+            price: itemData?.price ?? "",
         }
     })
 
-    const onSubmit: SubmitHandler<PropertyItem> = (data) => {
+    const onSubmit = (data: PropertyFormData) => {
         onChange((prev) => {
             return (
                 {
@@ -69,9 +72,6 @@ const PropertyForm = (props: PropertyFormProps) => {
                             <Controller
                                 name='propertyType'
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
                                         <NativeSelect.Root >
@@ -92,7 +92,7 @@ const PropertyForm = (props: PropertyFormProps) => {
                                             <NativeSelect.Indicator />
                                         </NativeSelect.Root>
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1" >
                                                 {fieldState.error.message}
                                             </Text>
                                         )}
@@ -105,14 +105,18 @@ const PropertyForm = (props: PropertyFormProps) => {
                             <Controller
                                 name="area"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input 
+                                            {...field} 
+                                            // value={field.value === undefined ? "" : field.value} 
+                                            value={String(field.value ?? "")}
+                                            type="number" 
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                        />
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1" >
                                                 {fieldState.error.message}
                                             </Text>
                                         )}
@@ -125,14 +129,18 @@ const PropertyForm = (props: PropertyFormProps) => {
                             <Controller
                                 name="rooms"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input 
+                                            {...field} 
+                                            // value={field.value === undefined ? "" : field.value} 
+                                            value={String(field.value ?? "")}
+                                            type="number" 
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                        />
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
                                             </Text>
                                         )}
@@ -145,14 +153,18 @@ const PropertyForm = (props: PropertyFormProps) => {
                             <Controller
                                 name="price"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input 
+                                            {...field} 
+                                            // value={field.value === undefined ? "" : field.value} 
+                                            value={String(field.value ?? "")}
+                                            type="number" 
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                        />
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
                                             </Text>
                                         )}

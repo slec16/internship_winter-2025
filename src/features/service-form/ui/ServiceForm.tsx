@@ -12,7 +12,9 @@ import {
     type UseStepsReturn
 } from "@chakra-ui/react"
 import type { Item, ServiceItem } from "@/shared/types/items"
-import { useForm, Controller, type SubmitHandler } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { serviseFormSchema, type ServiceFormInput, type ServiceFormData } from "@shared/lib/schemas"
 
 interface ServiceFormProps {
     itemData: Partial<ServiceItem> | null,
@@ -24,16 +26,17 @@ const ServiceForm = (props: ServiceFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
-    const { control, handleSubmit } = useForm<ServiceItem>({
+    const { control, handleSubmit } = useForm<ServiceFormInput, unknown, ServiceFormData>({
+        resolver: zodResolver(serviseFormSchema),
         defaultValues: {
             serviceType: itemData?.serviceType || "",
-            experience: itemData?.experience,
-            cost: itemData?.cost,
-            workShedule: itemData?.workShedule
+            experience: itemData?.experience ?? "",
+            cost: itemData?.cost ?? "",
+            workShedule: itemData?.workShedule ?? ""
         }
     })
 
-    const onSubmit: SubmitHandler<ServiceItem> = (data) => {
+    const onSubmit = (data: ServiceFormData) => {
 
         onChange((prev) => {
             return (
@@ -67,14 +70,15 @@ const ServiceForm = (props: ServiceFormProps) => {
                             <Controller
                                 name="serviceType"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input
+                                            {...field}
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"}
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"}
+                                        />
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
                                             </Text>
                                         )}
@@ -87,14 +91,18 @@ const ServiceForm = (props: ServiceFormProps) => {
                             <Controller
                                 name="experience"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input
+                                            {...field}
+                                            // value={field.value === undefined ? "" : field.value} 
+                                            value={String(field.value ?? "")}
+                                            type="number"
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"}
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"}
+                                        />
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
                                             </Text>
                                         )}
@@ -107,14 +115,18 @@ const ServiceForm = (props: ServiceFormProps) => {
                             <Controller
                                 name="cost"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input {...field} value={field.value === undefined ? "" : field.value} type="number" borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input
+                                            {...field}
+                                            // value={field.value === undefined ? "" : field.value} 
+                                            value={String(field.value ?? "")}
+                                            type="number"
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"}
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"}
+                                        />
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
                                             </Text>
                                         )}
@@ -127,9 +139,6 @@ const ServiceForm = (props: ServiceFormProps) => {
                             <Controller
                                 name="workShedule"
                                 control={control}
-                                rules={{
-                                    required: "Это поле обязательно для заполнения"
-                                }}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
                                         <NativeSelect.Root >
@@ -150,7 +159,7 @@ const ServiceForm = (props: ServiceFormProps) => {
                                             <NativeSelect.Indicator />
                                         </NativeSelect.Root>
                                         {fieldState.error && (
-                                            <Text color="red">
+                                            <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
                                             </Text>
                                         )}

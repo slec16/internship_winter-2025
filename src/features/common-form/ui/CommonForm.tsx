@@ -14,8 +14,9 @@ import {
     type UseStepsReturn
 } from "@chakra-ui/react"
 import { useForm, Controller, type SubmitHandler, useWatch, useFieldArray } from "react-hook-form"
-import type { Item, BaseItem, ItemType } from "@/shared/types/items"
-import { useEffect } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import type { Item, BaseItem } from "@/shared/types/items"
+import { commonFormSchema, type CommonFormData } from "@/shared/lib/schemas"
 import { ItemGallery } from "@/entities/item"
 
 interface commonFormProps {
@@ -24,23 +25,13 @@ interface commonFormProps {
     onChange: React.Dispatch<React.SetStateAction<Partial<Item> | null>>
 }
 
-
-interface IFormInput {
-    name: string
-    description: string
-    location: string
-    image: { id: string, url: string }[]
-    type: ItemType
-}
-
-const STORAGE_KEY = 'form_autosave_data'
-
 const CommonForm = (props: commonFormProps) => {
 
     const { itemData, stepsStore, onChange } = props
 
     // TODO: save form after reload
-    const { control, handleSubmit, watch, reset } = useForm<IFormInput>({
+    const { control, handleSubmit } = useForm<CommonFormData>({
+        resolver: zodResolver(commonFormSchema),
         defaultValues: {
             name: itemData?.name || "",
             description: itemData?.description || "",
@@ -67,8 +58,7 @@ const CommonForm = (props: commonFormProps) => {
 
 
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
-
+    const onSubmit: SubmitHandler<CommonFormData> = (data) => {
         const baseItemData: BaseItem = {
             name: data.name,
             description: data.description,
@@ -85,38 +75,8 @@ const CommonForm = (props: commonFormProps) => {
                 }
             )
         })
-        localStorage.removeItem(STORAGE_KEY);
         stepsStore.goToNextStep()
     }
-
-
-    // useEffect(() => {
-    //     const savedData = localStorage.getItem(STORAGE_KEY)
-    //     if (savedData) {
-    //         try {
-    //             const parsedData = JSON.parse(savedData)
-    //             reset(parsedData);
-
-                
-    //         } catch (error) {
-    //             console.error('Ошибка при восстановлении формы:', error)
-    //         }
-    //     }
-    // }, [reset])
-
-
-    // useEffect(() => {
-    //     const subscription = watch((data) => {
-    //         localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-    //     });
-
-    //     return () => subscription.unsubscribe()
-    // }, [watch])
-
-    // // удаление при анмауенте
-    // useEffect(() => {
-    //     return () => localStorage.removeItem(STORAGE_KEY)
-    // }, [])
 
     return (
         <Stack w="full" direction="row">
@@ -136,14 +96,11 @@ const CommonForm = (props: commonFormProps) => {
                                 <Controller
                                     name="name"
                                     control={control}
-                                    rules={{
-                                        required: "Это поле обязательно для заполнения"
-                                    }}
                                     render={({ field, fieldState }) => (
                                         <Box w="full">
                                             <Input {...field} borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                             {fieldState.error && (
-                                                <Text color="red">
+                                                <Text color="red" fontSize="sm" mt="1">
                                                     {fieldState.error.message}
                                                 </Text>
                                             )}
@@ -156,14 +113,11 @@ const CommonForm = (props: commonFormProps) => {
                                 <Controller
                                     name="description"
                                     control={control}
-                                    rules={{
-                                        required: "Это поле обязательно для заполнения"
-                                    }}
                                     render={({ field, fieldState }) => (
                                         <Box w="full">
                                             <Input {...field} borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                             {fieldState.error && (
-                                                <Text color="red">
+                                                <Text color="red" fontSize="sm" mt="1">
                                                     {fieldState.error.message}
                                                 </Text>
                                             )}
@@ -176,14 +130,11 @@ const CommonForm = (props: commonFormProps) => {
                                 <Controller
                                     name="location"
                                     control={control}
-                                    rules={{
-                                        required: "Это поле обязательно для заполнения"
-                                    }}
                                     render={({ field, fieldState }) => (
                                         <Box w="full">
                                             <Input {...field} borderColor={fieldState.error ? "red.500" : "inputBorder"} outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                             {fieldState.error && (
-                                                <Text color="red">
+                                                <Text color="red" fontSize="sm" mt="1">
                                                     {fieldState.error.message}
                                                 </Text>
                                             )}
@@ -199,9 +150,6 @@ const CommonForm = (props: commonFormProps) => {
                                             <Controller
                                                 name={`image.${index}.url`}
                                                 control={control}
-                                                rules={{
-                                                    required: "Поле не может быть пустым"
-                                                }}
                                                 render={({ field, fieldState }) => (
                                                     <Box w="full">
                                                         <Input
@@ -211,7 +159,7 @@ const CommonForm = (props: commonFormProps) => {
                                                             placeholder={`Изображение ${index + 1}`}
                                                         />
                                                         {fieldState.error && (
-                                                            <Text color="red">
+                                                            <Text color="red" fontSize="sm" mt="1">
                                                                 {fieldState.error.message}
                                                             </Text>
                                                         )}
@@ -241,9 +189,6 @@ const CommonForm = (props: commonFormProps) => {
                                 <Controller
                                     name="type"
                                     control={control}
-                                    rules={{
-                                        required: "Это поле обязательно для заполнения"
-                                    }}
                                     render={({ field, fieldState }) => (
                                         <Box w="full">
                                             <NativeSelect.Root >
@@ -264,7 +209,7 @@ const CommonForm = (props: commonFormProps) => {
                                                 <NativeSelect.Indicator />
                                             </NativeSelect.Root>
                                             {fieldState.error && (
-                                                <Text color="red">
+                                                <Text color="red" fontSize="sm" mt="1">
                                                     {fieldState.error.message}
                                                 </Text>
                                             )}
