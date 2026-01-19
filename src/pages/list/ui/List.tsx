@@ -1,15 +1,18 @@
 import AdsList from "@widgets/list"
-import { AdsFilter } from "@/features/ads-filter"
-import Search from "@/features/ads-search"
 import { useGetItemsQuery } from "@shared/api/itemsApi"
 import { Box, Flex } from "@chakra-ui/react"
 import { useQueryParams } from "@shared/lib/useQueryParams"
 import { useMemo } from "react"
+// TODO: вынести в index
 import { filterItemsByType } from "@/features/ads-filter/lib/filterByType"
 import { filterByAutoParams } from "@/features/ads-filter/lib/filterByAutoParams"
 import { filterByPropertyParams } from "@/features/ads-filter/lib/filterByPropertyParams"
 import { filterByServiceParams } from "@/features/ads-filter/lib/filterByServiceParams"
 import { filterBySearchParams } from "@/features/ads-search/lib/filterBySearchParams"
+
+// TODO: единый формат
+import { AdsFilter } from "@/features/ads-filter"
+import Search from "@/features/ads-search"
 
 const List = () => {
     const { searchParams } = useQueryParams()
@@ -39,10 +42,7 @@ const List = () => {
                 </Box>
                 <Box w="full">
                     <Search />
-                    {filteredData && <AdsList 
-                        data={filteredData}
-                    />}
-                    
+                    {filteredData.length > 0 && <AdsList items={filteredData} />}
                 </Box>
             </Flex>
         </>
