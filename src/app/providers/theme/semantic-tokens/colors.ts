@@ -108,6 +108,13 @@ export const semanticColors = {
     },
 
     //Steps
+    indicatorBorder: {
+        value: { base: "{colors.gray.800}", _dark: "{colors.gray.200}" },
+    },
 
+    // Pagination
+    paginationColor: {
+        value: { base: "{colors.gray.900}", _dark: "{colors.gray.100}" },
+    }
 }
 

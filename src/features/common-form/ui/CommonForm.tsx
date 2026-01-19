@@ -222,8 +222,8 @@ const CommonForm = (props: commonFormProps) => {
 
 
                     <ButtonGroup size="sm" variant="outline">
-                        <Button  disabled={!stepsStore.hasPrevStep}>Назад</Button>
-                        <Button type="submit" >Далее</Button>
+                        <Button bg="buttonPrimary" disabled={!stepsStore.hasPrevStep}>Назад</Button>
+                        <Button type="submit" bg="buttonPrimary">Далее</Button>
                     </ButtonGroup>
                 </form>
             </Box>

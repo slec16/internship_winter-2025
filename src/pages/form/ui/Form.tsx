@@ -46,13 +46,38 @@ const Form = () => {
         <Box p="5">
             <Text textStyle="xl" fontWeight="400" mb="10">{!item ? "Создание" : "Редактирование"} объявления</Text>
             <Box px="20">
-                <Steps.RootProvider value={stepsStore} colorPalette="blue">
+                <Steps.RootProvider value={stepsStore}>
                     <Steps.List>
                         {steps.map((step, index) => (
                             <Steps.Item key={index} index={index} title={step.title}>
-                                <Steps.Indicator/>
-                                <Steps.Title color="text">{step.title}</Steps.Title>
-                                <Steps.Separator/>
+                                <Steps.Indicator
+                                    bg="border"
+                                    color="mutedText"
+                                    _current={{
+                                        borderColor: "indicatorBorder"
+                                    }}
+                                    _complete={{
+                                        bg: "success",
+                                        color: "primaryFg"
+                                    }}
+                                />
+                                <Steps.Title 
+                                    color="mutedText"
+                                    _active={{
+                                        color: "text"
+                                    }}
+                                    _complete={{
+                                        color: "text"
+                                    }}
+                                >
+                                    {step.title}
+                                </Steps.Title>
+                                <Steps.Separator
+                                    bg="border"
+                                    _complete={{
+                                        bg: "success"
+                                    }}
+                                />
                             </Steps.Item>
                         ))}
                     </Steps.List>

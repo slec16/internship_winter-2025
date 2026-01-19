@@ -151,8 +151,8 @@ const AutoForm = (props: AutoFormProps) => {
 
 
                 <ButtonGroup size="sm" variant="outline">
-                    <Button onClick={prevStep}>Назад</Button>
-                    <Button type='submit'>Далее</Button>
+                    <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
+                    <Button type='submit' bg="buttonPrimary">Далее</Button>
                 </ButtonGroup>
             </form>
         </Box>
