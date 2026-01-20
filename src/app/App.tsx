@@ -6,6 +6,7 @@ import List from '@pages/list'
 import Form from '@pages/form'
 import Item from '@pages/item'
 import { Container } from '@chakra-ui/react'
+import { Toaster } from '@app/providers/components/ui/toaster'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                     <Route path='/item/:id' element={<Item />} />
                 </Routes>
             </Container>
+            <Toaster />
         </ThemeProvider>
     )
 }

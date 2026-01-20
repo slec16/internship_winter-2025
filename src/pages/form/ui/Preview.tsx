@@ -6,6 +6,7 @@ import {
     ButtonGroup,
     type UseStepsReturn
 } from "@chakra-ui/react"
+import { toaster } from "@app/providers/components/ui/toaster"
 import type { Item } from "@/shared/types/items"
 import { ItemHeader, ItemGallery, ItemAttributes, fieldTranslations } from "@entities/item"
 import { useCreateItemMutation, useUpdateItemMutation } from "@shared/api"
@@ -40,7 +41,11 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
                 stepsStore.goToNextStep()
 
             } catch (err) {
-                // TODO: отображать ошибку
+                toaster.create({
+                    title: "Возникла ошибка при изменении объявления",
+                    type: "error",
+                    closable: true
+                })
                 console.error(err)
             }
         } else {
@@ -48,7 +53,11 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
                 await createItem(itemData).unwrap()
                 stepsStore.goToNextStep()
             } catch (err) {
-                // TODO: отображать ошибку
+                toaster.create({
+                    title: "Возникла ошибка при создании объявления",
+                    type: "error",
+                    closable: true
+                })
                 console.error(err)
             }
         }
