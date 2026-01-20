@@ -36,7 +36,7 @@ export const semanticColors = {
     accent: {
         value: { base: "{colors.blue.500}", _dark: "{colors.blue.300}" },
     },
-    
+
     // Status
     success: {
         value: { base: "{colors.green.500}", _dark: "{colors.green.400}" },
@@ -47,7 +47,7 @@ export const semanticColors = {
     danger: {
         value: { base: "{colors.red.500}", _dark: "{colors.red.400}" },
     },
-    
+
     // Button
     buttonPrimary: {
         value: { base: "{colors.brand.600}", _dark: "{colors.brand.500}" },
@@ -67,6 +67,16 @@ export const semanticColors = {
     buttonSecondaryFg: {
         value: { base: "{colors.gray.900}", _dark: "{colors.gray.100}" },
     },
+    successButtonBg: {
+        value: { base: "{colors.green.600}", _dark: "{colors.green.600}" },
+    },
+    successButtonBorder: {
+        value: { base: "{colors.green.600}", _dark: "{colors.green.600}" },
+    },
+    successButtonHover: {
+        value: { base: "{colors.green.700}", _dark: "{colors.green.500}" },
+    },
+
 
     // Gallery Button
     bgGalleryButtonHover: {
@@ -75,7 +85,7 @@ export const semanticColors = {
     colorGalleryButtonHover: {
         value: { base: "{colors.gray.900}", _dark: "{colors.gray.400}" }
     },
-    
+
     // Tabs
     tabsBg: {
         value: { base: "{colors.gray.100}", _dark: "{colors.gray.800}" },
@@ -92,7 +102,7 @@ export const semanticColors = {
     tabsIcon: {
         value: { base: "{colors.blue.500}", _dark: "{colors.blue.400}" },
     },
-    
+
     // Input
     inputBg: {
         value: { base: "{colors.white}", _dark: "{colors.gray.700}" },

@@ -7,7 +7,7 @@ import {
 import ItemBreadcrumbs from "./ItemBreadcrumbs"
 import type { Item } from "@/shared/types/items"
 import { ItemHeader, ItemGallery, ItemAttributes, fieldTranslations } from "@entities/item"
- 
+
 interface ItemDetailsProps {
     item: Item
 }
@@ -32,14 +32,14 @@ const ItemDetails = (props: ItemDetailsProps) => {
     const navigateToForm = () => {
         navigate(
             "/form", {
-                state: {
-                    item: item
-                }
+            state: {
+                item: item
             }
+        }
         )
     }
 
-    return(
+    return (
         <>
             <VStack gap='4' mb="3">
                 <ItemHeader name={name} price={item.type === 'Недвижимость' ? item.price : item.type === 'Услуги' ? item.cost : 0} />
@@ -49,10 +49,20 @@ const ItemDetails = (props: ItemDetailsProps) => {
             </VStack>
             {/* TODO: заглушка */}
             {images.length > 0 && (
-                <ItemGallery images={images} name={item.name}/>
+                <ItemGallery images={images} name={item.name} />
             )}
             <ItemAttributes description={description} location={location} displayFields={displayFields} />
-            <Button onClick={navigateToForm} my="5" bg="green" opacity="80%">Редактировать</Button>
+            <Button
+                onClick={navigateToForm}
+                bg="successButtonBg"
+                color="buttonPrimaryFg"
+                borderColor="successButtonBorder"
+                _hover={{
+                    bg: "successButtonHover",
+                }}
+            >
+                Редактировать
+            </Button>
         </>
     )
 }

@@ -34,16 +34,16 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
 
     const saveAds = async () => {
 
-        if(itemData.id !== undefined && itemData.id !== null) {
+        if (itemData.id !== undefined && itemData.id !== null) {
             try {
-                await updateItem({id: itemData.id, ...itemData}).unwrap()
+                await updateItem({ id: itemData.id, ...itemData }).unwrap()
                 stepsStore.goToNextStep()
-                
+
             } catch (err) {
                 // TODO: отображать ошибку
                 console.error(err)
             }
-        } else{
+        } else {
             try {
                 await createItem(itemData).unwrap()
                 stepsStore.goToNextStep()
@@ -52,8 +52,14 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
                 console.error(err)
             }
         }
-       
+
     }
+
+    if (isCreating || isUpdating) return (
+        <Box px="10">
+            <Text>Загрузка...</Text>
+        </Box>
+    )
 
     return (
         <Box>
@@ -71,8 +77,28 @@ const Preview = ({ itemData, stepsStore }: { itemData: Item | null, stepsStore: 
             }
             <ItemAttributes description={description} location={location} displayFields={displayFields} />
             <ButtonGroup size="sm" variant="outline" mt="4">
-                <Button onClick={prevStep}>Назад</Button>
-                <Button onClick={saveAds}>Сохранить объявлеине</Button>
+                <Button
+                    bg="buttonPrimary"
+                    color="buttonPrimaryFg"
+                    borderColor="buttonPrimary"
+                    _hover={{
+                        bg: "buttonPrimaryHover",
+                    }}
+                    onClick={prevStep}
+                >
+                    Назад
+                </Button>
+                <Button
+                    bg="successButtonBg"
+                    color="buttonPrimaryFg"
+                    borderColor="successButtonBorder"
+                    _hover={{
+                        bg: "successButtonHover",
+                    }}
+                    onClick={saveAds}
+                >
+                    Сохранить объявление
+                </Button>
             </ButtonGroup>
         </Box >
     )

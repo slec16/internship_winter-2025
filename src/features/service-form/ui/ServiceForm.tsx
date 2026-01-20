@@ -172,8 +172,28 @@ const ServiceForm = (props: ServiceFormProps) => {
 
 
                 <ButtonGroup size="sm" variant="outline">
-                    <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
-                    <Button type="submit" bg="buttonPrimary">Далее</Button>
+                    <Button
+                        bg="buttonPrimary"
+                        color="buttonPrimaryFg"
+                        borderColor="buttonPrimary"
+                        _hover={{
+                            bg: "buttonPrimaryHover",
+                        }}
+                        onClick={prevStep}
+                    >
+                        Назад
+                    </Button>
+                    <Button
+                        type="submit"
+                        bg="buttonPrimary"
+                        color="buttonPrimaryFg"
+                        borderColor="buttonPrimary"
+                        _hover={{
+                            bg: "buttonPrimaryHover",
+                        }}
+                    >
+                        Далее
+                    </Button>
                 </ButtonGroup>
             </form>
         </Box>

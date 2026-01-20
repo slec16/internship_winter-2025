@@ -4,24 +4,12 @@ import DarkModeIcon from '@mui/icons-material/DarkMode'
 import SunnyIcon from '@mui/icons-material/Sunny'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useTheme } from '@app/providers/theme'
-import { useCreateItemMutation } from '@shared/api/itemsApi'
-import generateRandomItem from '@/shared/lib/randomItem'
 
 const Header = () => {
 
-    // const navigate = useNavigate()
     const { theme, toggleTheme } = useTheme()
-    const [createItem, { isLoading: isCreating }] = useCreateItemMutation()
     const navigate = useNavigate()
     
-    const handleCreateRandom = async () => {
-        try {
-            const randomItem = generateRandomItem()
-            await createItem(randomItem).unwrap()
-        } catch (err) {
-            console.error(err)
-        }
-    }
 
     return (
         <Flex as="header" w="full" justify="space-between" px={3} py={5}>
@@ -57,7 +45,6 @@ const Header = () => {
                     <AccountCircleIcon />
                 </IconButton>
                 <Button
-                    // onClick={handleCreateRandom}
                     onClick={() => navigate("/form")}
                     variant="solid"
                     bg="buttonPrimary"
@@ -66,7 +53,6 @@ const Header = () => {
                     _hover={{
                         bg: "buttonPrimaryHover",
                     }}
-                    disabled={isCreating}
                 >
                     Разместить объявление
                 </Button>

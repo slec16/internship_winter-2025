@@ -32,15 +32,15 @@ const Form = () => {
         },
         {
             title: "Шаг 2",
-            component: <TypeForm itemData={itemData} onChange={setItemData} stepsStore={stepsStore}/>
+            component: <TypeForm itemData={itemData} onChange={setItemData} stepsStore={stepsStore} />
         },
         {
             title: "Шаг 3",
-            component: <Preview itemData={itemData as Item} stepsStore={stepsStore}/>
+            component: <Preview itemData={itemData as Item} stepsStore={stepsStore} />
         },
     ]
 
-   
+
 
     return (
         <Box p="5">
@@ -61,7 +61,7 @@ const Form = () => {
                                         color: "primaryFg"
                                     }}
                                 />
-                                <Steps.Title 
+                                <Steps.Title
                                     color="mutedText"
                                     _active={{
                                         color: "text"
@@ -88,7 +88,7 @@ const Form = () => {
                         </Steps.Content>
                     ))}
 
-                    <Steps.CompletedContent><CompletedContent item={item}/></Steps.CompletedContent>
+                    <Steps.CompletedContent><CompletedContent item={item} /></Steps.CompletedContent>
 
                 </Steps.RootProvider>
             </Box>
@@ -99,14 +99,20 @@ const Form = () => {
 export default Form
 
 
-const CompletedContent = ({item}: {item: Item | undefined}) => {
+const CompletedContent = ({ item }: { item: Item | undefined }) => {
 
     const navigate = useNavigate()
 
-    return(
+    return (
         <Box>
-            <Text textStyle="lg" fontWeight="500">Объявление успешно {item ? "изменено" : "создано"}</Text>
+            <Text textStyle="lg" fontWeight="500" mb="7">Объявление успешно {item ? "изменено" : "создано"}</Text>
             <Button
+                bg="buttonPrimary"
+                color="buttonPrimaryFg"
+                borderColor="buttonPrimary"
+                _hover={{
+                    bg: "buttonPrimaryHover",
+                }}
                 onClick={() => navigate("/")}
             >
                 Перейти на главную

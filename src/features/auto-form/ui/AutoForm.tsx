@@ -36,7 +36,7 @@ const AutoForm = (props: AutoFormProps) => {
     })
 
     const onSubmit = (data: AutoFormData) => {
-      
+
         onChange((prev) => {
             return (
                 {
@@ -106,13 +106,13 @@ const AutoForm = (props: AutoFormProps) => {
                                 control={control}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input 
-                                            {...field} 
+                                        <Input
+                                            {...field}
                                             // value={field.value === undefined ? "" : field.value} 
                                             value={String(field.value ?? "")}
-                                            type="number" 
-                                            borderColor={fieldState.error ? "red.500" : "inputBorder"} 
-                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"} 
+                                            type="number"
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"}
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"}
                                         />
                                         {fieldState.error && (
                                             <Text color="red" fontSize="sm" mt="1">
@@ -130,13 +130,13 @@ const AutoForm = (props: AutoFormProps) => {
                                 control={control}
                                 render={({ field, fieldState }) => (
                                     <Box w="full">
-                                        <Input 
-                                        {...field} 
-                                        // value={field.value === undefined ? "" : field.value} 
-                                        value={String(field.value ?? "")}
-                                        type="number" 
-                                        borderColor={fieldState.error ? "red.500" : "inputBorder"} 
-                                        outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
+                                        <Input
+                                            {...field}
+                                            // value={field.value === undefined ? "" : field.value} 
+                                            value={String(field.value ?? "")}
+                                            type="number"
+                                            borderColor={fieldState.error ? "red.500" : "inputBorder"}
+                                            outlineColor={fieldState.error ? "red.500" : "inputBorder"} />
                                         {fieldState.error && (
                                             <Text color="red" fontSize="sm" mt="1">
                                                 {fieldState.error.message}
@@ -151,8 +151,28 @@ const AutoForm = (props: AutoFormProps) => {
 
 
                 <ButtonGroup size="sm" variant="outline">
-                    <Button bg="buttonPrimary" onClick={prevStep}>Назад</Button>
-                    <Button type='submit' bg="buttonPrimary">Далее</Button>
+                    <Button
+                        bg="buttonPrimary"
+                        color="buttonPrimaryFg"
+                        borderColor="buttonPrimary"
+                        _hover={{
+                            bg: "buttonPrimaryHover",
+                        }}
+                        onClick={prevStep}
+                    >
+                        Назад
+                    </Button>
+                    <Button
+                        type='submit'
+                        bg="buttonPrimary"
+                        color="buttonPrimaryFg"
+                        borderColor="buttonPrimary"
+                        _hover={{
+                            bg: "buttonPrimaryHover",
+                        }}
+                    >
+                        Далее
+                    </Button>
                 </ButtonGroup>
             </form>
         </Box>

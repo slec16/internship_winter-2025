@@ -27,6 +27,7 @@ class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
     render(): ReactNode {
         if (this.state.hasError) {
             return (
+                // TODO: delete tailwind
                 <div className='min-h-screen flex flex-col items-center justify-center p-6'>
                     <h1 className='text-2xl font-bold mb-4 text-sky-500 dark:text-orange-500'>Что-то пошло не так</h1>
                     <button

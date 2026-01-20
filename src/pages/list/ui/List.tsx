@@ -1,6 +1,6 @@
 import AdsList from "@widgets/list"
 import { useGetItemsQuery } from "@shared/api/itemsApi"
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Flex, Text } from "@chakra-ui/react"
 import { useQueryParams } from "@shared/lib/useQueryParams"
 import { useMemo } from "react"
 // TODO: вынести в index
@@ -32,8 +32,16 @@ const List = () => {
         return result
     }, [data, searchParams])
 
-    if (error) return <p>Возникла ошибка</p>
-    if (isLoading) return <p>Загрузка...</p>
+    if (error) return (
+        <Box px='10'>
+            <Text>Возникла ошибка</Text>
+        </Box>
+    )
+    if (isLoading) return (
+        <Box px="10">
+            <Text>Загрузка...</Text>
+        </Box>
+    )
     return (
         <>
             <Flex direction="row" gapX="5">
