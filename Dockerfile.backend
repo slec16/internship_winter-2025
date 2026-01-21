@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache git
+
+RUN git clone --depth 1 https://github.com/avito-tech/tech-internship.git /tmp/tech-internship \
+    && cp -r "/tmp/tech-internship/Tech Internships/Frontend/Frontend-trainee-assignment-winter-2025/server/." . \
+    && rm -rf /tmp/tech-internship
+
+RUN npm ci --omit=dev || npm install --omit=dev
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

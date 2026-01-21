@@ -32,7 +32,7 @@ const ServiceForm = (props: ServiceFormProps) => {
             serviceType: itemData?.serviceType || "",
             experience: itemData?.experience ?? "",
             cost: itemData?.cost ?? "",
-            workShedule: itemData?.workShedule ?? ""
+            workShedule: itemData?.workSchedule ?? ""
         }
     })
 

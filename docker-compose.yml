@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: internship-backend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: internship-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+networks:
+  default:
+    name: internship-winter-2025
+

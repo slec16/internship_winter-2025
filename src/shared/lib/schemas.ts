@@ -43,7 +43,7 @@ export const serviceItemSchema = baseItemSchema.extend({
     serviceType: z.string().min(1, "Тип услуги обязателен для заполнения"),
     experience: z.coerce.number().nonnegative("Опыт не может быть отрицательным"),
     cost: z.coerce.number().nonnegative("Цена не может быть отрицательной"),
-    workShedule: z.string().optional()
+    workSchedule: z.string().optional()
 })
 
 export const itemSchema = z.discriminatedUnion("type", [
