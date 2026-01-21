@@ -2,7 +2,7 @@ import AdsList from "@widgets/list"
 import { useGetItemsQuery } from "@shared/api/itemsApi"
 import { Box, Flex, Text } from "@chakra-ui/react"
 import { useQueryParams } from "@shared/lib/useQueryParams"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 // TODO: вынести в index
 import { filterItemsByType } from "@/features/ads-filter/lib/filterByType"
 import { filterByAutoParams } from "@/features/ads-filter/lib/filterByAutoParams"
@@ -15,8 +15,20 @@ import { AdsFilter } from "@/features/ads-filter"
 import Search from "@/features/ads-search"
 
 const List = () => {
-    const { searchParams } = useQueryParams()
+    const { searchParams, setSearchParams } = useQueryParams()
     const { data, error, isLoading } = useGetItemsQuery()
+
+    useEffect(() => {
+        const filterType = searchParams.get('filterType')
+        // if( !filterType ) searchParams.set( 'filterType', 'auto' )
+        if( !filterType ) {
+            setSearchParams((prev) => {
+                const params = new URLSearchParams(prev)
+                params.set('filterType', 'auto')
+                return params
+            }, { replace: true })
+        }
+    }, [])
 
     const filteredData = useMemo(() => {
         if (!data) return []
