@@ -3,6 +3,7 @@ import { Flex, Text, Button, IconButton, HStack } from '@chakra-ui/react'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import SunnyIcon from '@mui/icons-material/Sunny'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+// TODO: неправильно по уровням
 import { useTheme } from '@app/providers/theme'
 
 const Header = () => {
